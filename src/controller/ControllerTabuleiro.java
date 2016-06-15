@@ -2,6 +2,12 @@ package controller;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
 import model.*;
@@ -10,15 +16,16 @@ import model.*;
  * @author Pedro
  *
  */
-public class ControllerTabuleiro extends Observable implements Observer {
+public class ControllerTabuleiro extends Observable implements Observer, Serializable {
 
 	private static ControllerTabuleiro controller;
 	private static List<model.Exercito> lstJogadores = new ArrayList<model.Exercito>();
 
+	private List<model.Exercito> instanceLstJogadores;
 	private List<Jogada> lstJogadas = new ArrayList<Jogada>();
 	private ArrayList<Continente> lstContinentes = new ArrayList<Continente>();
-	private Iterator<model.Exercito> itJogador = getLstJogadores().iterator();
-	private Iterator<Jogada> itJogada = getLstJogadas().iterator();
+	private transient Iterator<model.Exercito> itJogador = getLstJogadores().iterator();
+	private transient Iterator<Jogada> itJogada = getLstJogadas().iterator();
 	private ArrayList<Dado> lstDadosAtaque = new ArrayList<Dado>();
 	private ArrayList<Dado> lstDadosDefesa = new ArrayList<Dado>();
 	private Exercito jogadorDaVez;
@@ -71,7 +78,7 @@ public class ControllerTabuleiro extends Observable implements Observer {
 	}
 
 	private ControllerTabuleiro() {
-
+		
 	}
 
 	public int getQtdTroca() {
@@ -1133,7 +1140,7 @@ public class ControllerTabuleiro extends Observable implements Observer {
 		}
 
 		setChanged();
-		notifyObservers();
+		notifyObservers(this);
 	}
 
 	private void setVencedor() {
@@ -1356,13 +1363,53 @@ public class ControllerTabuleiro extends Observable implements Observer {
 		return false;
 	}
 	
-	public String serialize() {
-		return "";
+	public byte[] serialize() {
+		instanceLstJogadores = lstJogadores;
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		ObjectOutputStream out;
+		try {
+			out = new ObjectOutputStream(stream);
+			out.writeObject(this);
+			out.close();
+			stream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Could not serialize ControllerTabuleiro");
+		}
+		return stream.toByteArray();
 	}
 
 	@Override
-	public void update(Observable o, Object serialized) {
-		// deserialize and update
+	public void update(Observable o, Object serializedObj) {
+		ByteArrayInputStream stream = new ByteArrayInputStream((byte[]) serializedObj);
+		ObjectInputStream input;
+		ControllerTabuleiro newController;
+		try {
+			input = new ObjectInputStream(stream);
+			newController = (ControllerTabuleiro) input.readObject();
+			input.close();
+			stream.close();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Could not deserialize ControllerTabuleiro");
+		}
+
+		lstJogadores = newController.instanceLstJogadores;
+		lstJogadas = newController.lstJogadas;
+		lstContinentes = newController.lstContinentes;
+		itJogador = newController.itJogador;
+		itJogada = newController.itJogada;
+		lstDadosAtaque = newController.lstDadosAtaque;
+		lstDadosDefesa = newController.lstDadosDefesa;
+		jogadorDaVez = newController.jogadorDaVez;
+		deck = newController.deck;
+		territorioOrigem = newController.territorioOrigem;
+		territorioDestino = newController.territorioDestino;
+		mensagem = newController.mensagem;
+		qtdTroca = newController.qtdTroca;
+		conquistouTerritorio = newController.conquistouTerritorio;
+		deckObjetivos = newController.deckObjetivos;
+		vencedor = newController.vencedor;
 	}
 
 }

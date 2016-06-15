@@ -1,7 +1,8 @@
 package model;
 
+import java.io.Serializable;
 
-public class Soldado {
+public class Soldado implements Serializable {
 
 	private Exercito exercito;
 	private Continente continente;

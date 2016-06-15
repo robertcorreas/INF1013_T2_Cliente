@@ -1,5 +1,6 @@
 package model;
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author Pedro
  *
  */
-public class Continente {
+public class Continente implements Serializable {
 	
 	private ArrayList<Territorio> lstTerritorio = new ArrayList<Territorio>();
 	private String nome;
@@ -26,7 +27,7 @@ public class Continente {
 	}
 
 	/**
-	 * Retorna a cor do território
+	 * Retorna a cor do territï¿½rio
 	 * @return
 	 */
 	public Color getCor() {
@@ -34,7 +35,7 @@ public class Continente {
 	}
 	
 	/**
-	 * Retorna o nome do território
+	 * Retorna o nome do territï¿½rio
 	 * @return
 	 */
 	public String getNome() {
@@ -42,7 +43,7 @@ public class Continente {
 	}
 	
 	/**
-	 * Retorna o bonus do território
+	 * Retorna o bonus do territï¿½rio
 	 * @return
 	 */
 	public int getBonus() {
@@ -59,7 +60,7 @@ public class Continente {
 	
 	/**
 	 * Adiciona o territorio passado como parametro na lista de territorios deste continente
-	 * @param t = uma instância de territorio
+	 * @param t = uma instï¿½ncia de territorio
 	 */
 	public void addTerritorio(Territorio t) {
 		lstTerritorio.add(t);

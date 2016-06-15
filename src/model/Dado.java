@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Random;
 
-public class Dado extends Observable implements Comparable<Dado> {
+public class Dado extends Observable implements Comparable<Dado>, Serializable {
 
 	private int numero;
 	private char tipo;
@@ -12,10 +13,10 @@ public class Dado extends Observable implements Comparable<Dado> {
 
 	public Dado(char tipo) {
 		
-		// Seta o tipo do dado, se á de ataque (a) ou defesa (d)
+		// Seta o tipo do dado, se ï¿½ de ataque (a) ou defesa (d)
 		this.tipo = tipo;
 		
-		//inicializa todos os dados com o número 6
+		//inicializa todos os dados com o nï¿½mero 6
 		this.numero = 0;
 	}
 	

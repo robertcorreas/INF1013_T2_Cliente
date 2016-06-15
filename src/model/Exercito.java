@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import controller.ControllerTabuleiro;
 
-public class Exercito {
+public class Exercito implements Serializable {
 
 	private String nome;
 	private Object cor;
@@ -79,16 +80,16 @@ public class Exercito {
 	public void setJogadorFora(boolean b) {
 		foradojogo = b;
 		
-		// Se o jogador está fora do jogo
+		// Se o jogador estï¿½ fora do jogo
 		if (isJogadorFora()) {
 			
 			// Para cada jogador da lista de jogadores
 			for (Exercito j : ControllerTabuleiro.getInstance().getLstJogadores()) {
 				
-				// Se o jogador não é o jogador da vez
+				// Se o jogador nï¿½o ï¿½ o jogador da vez
 				if (j != ControllerTabuleiro.getInstance().getJogadorDaVez()) {
 					
-					// Se o objetivo do jogador é destruir este exército
+					// Se o objetivo do jogador ï¿½ destruir este exï¿½rcito
 					if (j.getObjetivo().getExercitoAlvo() == this) {
 
 						// Seta o objetivo de 24 territorios para o jogador

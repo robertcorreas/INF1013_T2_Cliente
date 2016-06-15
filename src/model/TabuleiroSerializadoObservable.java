@@ -8,13 +8,15 @@ import controller.ControllerTabuleiro;
 
 public class TabuleiroSerializadoObservable extends Observable implements Observer {
 
-	public TabuleiroSerializadoObservable(Observable o) {
-		o.addObserver(this);
-	}
-
 	@Override
 	public void update(Observable o, Object tabuleiro) {
-		notifyObservers(((ControllerTabuleiro) tabuleiro).serialize());
+		if(tabuleiro != null) {
+			System.out.println("tabuleiro não é nulo!");
+			setChanged();
+			notifyObservers(((ControllerTabuleiro) tabuleiro).serialize());
+		} else {
+			System.out.println("Tabuleiro é nulo!");
+		}
 	}
 
 }

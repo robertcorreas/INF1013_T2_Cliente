@@ -1,7 +1,8 @@
 package model;
 
+import java.io.Serializable;
 
-public class Carta {
+public class Carta implements Serializable {
 	
 	private Territorio territorio;
 	private int simbolo;

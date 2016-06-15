@@ -33,7 +33,7 @@ public class Conexao implements Observer {
 
 	private Conexao(Socket socket) {
 		this.socket = socket;
-		this.tratador = new TratadorProximaJogada(socket);
+		this.tratador = TratadorProximaJogada.start(socket);
 	}
 
 	public void addParaSincronizar(Observer o) {
@@ -44,11 +44,12 @@ public class Conexao implements Observer {
 	public void update(Observable o, Object msg) {
 		PrintStream saida;
 		try {
+			System.out.println("Enviei tabuleiro!");
 			saida = new PrintStream(this.socket.getOutputStream());
+			saida.write((byte[]) msg);
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Could not send information through connection with server.");
 		}
-		saida.println((String) msg);
 	}
 }
