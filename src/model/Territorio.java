@@ -6,7 +6,9 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
+import java.io.Serializable;
 import java.util.ArrayList;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -14,7 +16,7 @@ import javax.swing.SwingConstants;
  * @author Pedro
  *
  */
-public class Territorio {
+public class Territorio implements Serializable {
 	
 	private GeneralPath shape;
 	private String nome;
@@ -94,7 +96,7 @@ public class Territorio {
  	}
  	
 	/**
-	 * Monta o shape do territorio através do vetor de pontos passados
+	 * Monta o shape do territorio atravï¿½s do vetor de pontos passados
 	 * @param pontos
 	 */
 	private void montaShape(Ponto[] pontos) {

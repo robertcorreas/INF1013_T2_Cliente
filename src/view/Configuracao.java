@@ -16,7 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import cliente.Conexao;
 import controller.ControllerTabuleiro;
+import model.TabuleiroSerializadoObservable;
 
 @SuppressWarnings("serial")
 public class Configuracao extends JFrame {
@@ -24,7 +26,7 @@ public class Configuracao extends JFrame {
 	private ArrayList<view.Exercito> lstExercitos = new ArrayList<view.Exercito>();
 	private ArrayList<view.Exercito> lstJogadores = new ArrayList<Exercito>();
 	
-	// Bloco de inicialização dos exercitos
+	// Bloco de inicializaï¿½ï¿½o dos exercitos
 		{
 			lstExercitos.add(new view.Exercito("Laranja", 	new Color(209, 84, 000)));
 			lstExercitos.add(new view.Exercito("Vermelho",	new Color(255, 003, 003)));
@@ -47,7 +49,7 @@ public class Configuracao extends JFrame {
 		lblTxtInicio.setBounds(20, 200, 350, 90);
 		lblTxtInicio.setFont(new Font("Stencil", Font.PLAIN, 18));
 		lblTxtInicio.setForeground(Color.white);
-		lblTxtInicio.setText("Selecione pelo menos 3 exércitos \ne clique em iniciar jogo");
+		lblTxtInicio.setText("Selecione pelo menos 3 exï¿½rcitos \ne clique em iniciar jogo");
 		lblTxtInicio.setOpaque(false);
 		
 		add(lblTxtInicio);
@@ -63,7 +65,7 @@ public class Configuracao extends JFrame {
 		// Zerando a lista de jogadores
 		lstJogadores.clear();
 		
-		// Lendro a lista de exercitos, adicionando à lista de jogadores se o exército está selecionado
+		// Lendro a lista de exercitos, adicionando ï¿½ lista de jogadores se o exï¿½rcito estï¿½ selecionado
 		for(Exercito e: getLstexercitos()) {
 			if(e.isSelecionado()) {
 				lstJogadores.add(e);
@@ -84,7 +86,13 @@ public class Configuracao extends JFrame {
 			
 			// Abre o tabuleiro
 			Tabuleiro.getInstance();
-			ControllerTabuleiro.getInstance().preparaTabuleiro();
+			ControllerTabuleiro controller = ControllerTabuleiro.getInstance();
+			controller.preparaTabuleiro();
+			Conexao conexao = Conexao.getInstance();
+			conexao.addParaSincronizar(controller);
+			TabuleiroSerializadoObservable tabuleiroSerObserver = new TabuleiroSerializadoObservable();
+			controller.addObserver(tabuleiroSerObserver);
+			tabuleiroSerObserver.addObserver(conexao);
 			return true;
 		}
 		return false;
@@ -130,7 +138,7 @@ public class Configuracao extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				if(validaJogadores()){
-					// Esconde a janela de configuração do jogo.
+					// Esconde a janela de configuraï¿½ï¿½o do jogo.
 					setVisible(false);
 				};
 							

@@ -2,6 +2,12 @@ package controller;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
 import model.*;
@@ -10,15 +16,16 @@ import model.*;
  * @author Pedro
  *
  */
-public class ControllerTabuleiro extends Observable {
+public class ControllerTabuleiro extends Observable implements Observer, Serializable {
 
 	private static ControllerTabuleiro controller;
 	private static List<model.Exercito> lstJogadores = new ArrayList<model.Exercito>();
 
+	private List<model.Exercito> instanceLstJogadores;
 	private List<Jogada> lstJogadas = new ArrayList<Jogada>();
 	private ArrayList<Continente> lstContinentes = new ArrayList<Continente>();
-	private Iterator<model.Exercito> itJogador = getLstJogadores().iterator();
-	private Iterator<Jogada> itJogada = getLstJogadas().iterator();
+	private transient Iterator<model.Exercito> itJogador = getLstJogadores().iterator();
+	private transient Iterator<Jogada> itJogada = getLstJogadas().iterator();
 	private ArrayList<Dado> lstDadosAtaque = new ArrayList<Dado>();
 	private ArrayList<Dado> lstDadosDefesa = new ArrayList<Dado>();
 	private Exercito jogadorDaVez;
@@ -31,7 +38,7 @@ public class ControllerTabuleiro extends Observable {
 	private DeckObjetivos deckObjetivos;
 	private Exercito vencedor;
 
-	// Bloco de inicialização das jogadas
+	// Bloco de inicializaï¿½ï¿½o das jogadas
 	{
 		lstJogadas = new ArrayList<Jogada>();
 		lstJogadas.add(new Jogada("Distribuir"));
@@ -39,7 +46,7 @@ public class ControllerTabuleiro extends Observable {
 		lstJogadas.add(new Jogada("Remanejar"));
 	}
 
-	// bloco de inicialização dos continentes
+	// bloco de inicializaï¿½ï¿½o dos continentes
 	{
 		// Cores dos continentes
 		Color corAmericaNorte = new Color(238, 64, 54);
@@ -49,17 +56,17 @@ public class ControllerTabuleiro extends Observable {
 		Color corEuropa = new Color(43, 56, 143);
 		Color corOceania = new Color(38, 169, 224);
 
-		lstContinentes.add(new Continente("América do norte", corAmericaNorte, 5));
-		lstContinentes.add(new Continente("América do sul", corAmericaSul, 2));
-		lstContinentes.add(new Continente("África", corAfrica, 3));
-		lstContinentes.add(new Continente("Ásia", corAsia, 7));
+		lstContinentes.add(new Continente("Amï¿½rica do norte", corAmericaNorte, 5));
+		lstContinentes.add(new Continente("Amï¿½rica do sul", corAmericaSul, 2));
+		lstContinentes.add(new Continente("ï¿½frica", corAfrica, 3));
+		lstContinentes.add(new Continente("ï¿½sia", corAsia, 7));
 		lstContinentes.add(new Continente("Europa", corEuropa, 5));
 		lstContinentes.add(new Continente("Oceania", corOceania, 2));
 
 		carregaTerritorios();
 	}
 
-	// Bloco de inicialização dos dados
+	// Bloco de inicializaï¿½ï¿½o dos dados
 	{
 		while (lstDadosAtaque.size() < 3) {
 			lstDadosAtaque.add(new Dado('a'));
@@ -71,7 +78,7 @@ public class ControllerTabuleiro extends Observable {
 	}
 
 	private ControllerTabuleiro() {
-
+		
 	}
 
 	public int getQtdTroca() {
@@ -194,7 +201,7 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(535.6, 531.4) },
 				"af_angola", new Ponto(548, 499), 2);
 
-		Territorio Argelia = new Territorio("Argélia",
+		Territorio Argelia = new Territorio("Argï¿½lia",
 				new Ponto[] { new Ponto(436.7, 337.5), new Ponto(473.2, 337.5), new Ponto(479.6, 350.3),
 						new Ponto(492.5, 350.3), new Ponto(499.1, 364.1), new Ponto(539.8, 364.1),
 						new Ponto(513.0, 410.1), new Ponto(425.3, 410.1), new Ponto(409.3, 384.5) },
@@ -206,13 +213,13 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(623.6, 436.6), new Ponto(594.0, 385.3), new Ponto(597.8, 378.5) },
 				"af_egito", new Ponto(561, 386), 3);
 
-		Territorio Nigeria = new Territorio("Nigéria",
+		Territorio Nigeria = new Territorio("Nigï¿½ria",
 				new Ponto[] { new Ponto(425.3, 410.1), new Ponto(448.1, 452.2), new Ponto(503.3, 452.2),
 						new Ponto(519.9, 482.5), new Ponto(588.6, 482.5), new Ponto(562.4, 436.6),
 						new Ponto(547.6, 410.1) },
 				"af_nigeria", new Ponto(519, 430), 1);
 
-		Territorio Somalia = new Territorio("Somália",
+		Territorio Somalia = new Territorio("Somï¿½lia",
 				new Ponto[] { new Ponto(643.1, 502.0), new Ponto(653.0, 502.0), new Ponto(672.7, 464.6),
 						new Ponto(639.3, 464.6), new Ponto(623.6, 436.6), new Ponto(562.4, 436.6),
 						new Ponto(599.4, 502.3), new Ponto(573.4, 545.4), new Ponto(617.6, 545.4) },
@@ -225,7 +232,7 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(440.2, 309.2), new Ponto(415.9, 309.2) },
 				"eu_espanha", new Ponto(441, 272), 1);
 
-		Territorio Franca = new Territorio("França",
+		Territorio Franca = new Territorio("Franï¿½a",
 				new Ponto[] { new Ponto(526.8, 186.6), new Ponto(538.7, 210.4), new Ponto(508.1, 263.1),
 						new Ponto(502.1, 263.1), new Ponto(494.4, 279.1), new Ponto(483.7, 279.1),
 						new Ponto(476.9, 292.5), new Ponto(461.0, 266.0), new Ponto(466.7, 255.2),
@@ -234,7 +241,7 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(521.8, 207.7), new Ponto(517.8, 200.4) },
 				"eu_franca", new Ponto(476, 238), 3);
 
-		Territorio Italia = new Territorio("Itália", new Ponto[] { new Ponto(552.4, 210.4), new Ponto(538.7, 210.4),
+		Territorio Italia = new Territorio("Itï¿½lia", new Ponto[] { new Ponto(552.4, 210.4), new Ponto(538.7, 210.4),
 				new Ponto(508.1, 263.1), new Ponto(516.6, 263.1), new Ponto(526.7, 281.8), new Ponto(533.7, 281.8),
 				new Ponto(542.5, 298.2), new Ponto(542.5, 300.2), new Ponto(537.1, 308.2), new Ponto(549.2, 308.2),
 				new Ponto(554.8, 297.3), new Ponto(556.1, 297.3), new Ponto(557.4, 299.5), new Ponto(563.9, 299.5),
@@ -242,7 +249,7 @@ public class ControllerTabuleiro extends Observable {
 				new Ponto(543.5, 253.4), new Ponto(552.8, 253.4), new Ponto(555.8, 259.4), new Ponto(567.5, 237.9) },
 				"eu_italia", new Ponto(534, 222), 2);
 
-		Territorio Polonia = new Territorio("Polônia",
+		Territorio Polonia = new Territorio("Polï¿½nia",
 				new Ponto[] { new Ponto(575.6, 176.1), new Ponto(583.6, 176.0), new Ponto(600.8, 205.9),
 						new Ponto(581.8, 237.9), new Ponto(567.5, 237.9), new Ponto(552.4, 210.4),
 						new Ponto(564.1, 189.0), new Ponto(569.8, 189.0) },
@@ -257,7 +264,7 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(450.8, 163.2) },
 				"eu_reinounido", new Ponto(456, 169), 1);
 
-		Territorio Romenia = new Territorio("Romênia",
+		Territorio Romenia = new Territorio("Romï¿½nia",
 				new Ponto[] { new Ponto(567.5, 237.9), new Ponto(555.8, 259.4), new Ponto(555.8, 262.4),
 						new Ponto(557.6, 264.2), new Ponto(566.1, 264.2), new Ponto(579.8, 288.6),
 						new Ponto(574.4, 297.5), new Ponto(581.4, 308.2), new Ponto(593.2, 308.2),
@@ -265,7 +272,7 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(607.9, 283.7), new Ponto(581.8, 237.9) },
 				"eu_romenia", new Ponto(571, 249), 3);
 
-		Territorio Suecia = new Territorio("Suécia", new Ponto[] { new Ponto(551.0, 96.6), new Ponto(582.5, 96.6),
+		Territorio Suecia = new Territorio("Suï¿½cia", new Ponto[] { new Ponto(551.0, 96.6), new Ponto(582.5, 96.6),
 				new Ponto(610.2, 144.5), new Ponto(602.0, 158.0), new Ponto(571.5, 158.0), new Ponto(578.7, 145.7),
 				new Ponto(569.6, 145.7), new Ponto(579.6, 127.8), new Ponto(562.9, 127.8), new Ponto(552.1, 145.8),
 				new Ponto(558.1, 156.3), new Ponto(552.0, 167.3), new Ponto(555.4, 172.1), new Ponto(548.3, 183.7),
@@ -273,12 +280,12 @@ public class ControllerTabuleiro extends Observable {
 				new Ponto(501.4, 183.7), new Ponto(492.1, 166.6), new Ponto(507.0, 140.6), new Ponto(522.0, 140.6),
 				new Ponto(537.1, 111.5), new Ponto(543.0, 111.5) }, "eu_suecia", new Ponto(520, 139), 2);
 
-		Territorio Ucrania = new Territorio("Ucrânia",
+		Territorio Ucrania = new Territorio("Ucrï¿½nia",
 				new Ponto[] { new Ponto(611.6, 254.4), new Ponto(620.1, 239.5), new Ponto(600.8, 205.9),
 						new Ponto(581.8, 237.9), new Ponto(607.9, 283.7), new Ponto(619.0, 264.9) },
 				"eu_ucrania", new Ponto(591, 227), 1);
 
-		Territorio Arabia_Saudita = new Territorio("Arábia Saudita",
+		Territorio Arabia_Saudita = new Territorio("Arï¿½bia Saudita",
 				new Ponto[] { new Ponto(646.2, 423.6), new Ponto(639.1, 434.7), new Ponto(649.1, 450.3),
 						new Ponto(699.0, 450.3), new Ponto(726.6, 403.0), new Ponto(716.8, 387.3),
 						new Ponto(680.5, 387.3), new Ponto(654.0, 342.4), new Ponto(627.4, 388.2) },
@@ -292,13 +299,13 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(859.2, 396.3) },
 				"as_bangladesh", new Ponto(838, 368), 1);
 
-		Territorio Cazaquistao = new Territorio("Cazaquistão",
+		Territorio Cazaquistao = new Territorio("Cazaquistï¿½o",
 				new Ponto[] { new Ponto(907.9, 201.9), new Ponto(920.4, 222.6), new Ponto(906.1, 246.4),
 						new Ponto(784.1, 246.4), new Ponto(772.1, 224.1), new Ponto(724.7, 224.1),
 						new Ponto(739.0, 201.9) },
 				"as_cazaquistao", new Ponto(819, 210), 1);
 
-		Territorio Mongolia = new Territorio("Mongólia",
+		Territorio Mongolia = new Territorio("Mongï¿½lia",
 				new Ponto[] { new Ponto(906.1, 246.4), new Ponto(804.9, 246.4), new Ponto(822.0, 278.5),
 						new Ponto(873.9, 278.5), new Ponto(894.6, 278.5), new Ponto(906.1, 300.4),
 						new Ponto(916.3, 287.4), new Ponto(902.8, 264.5), new Ponto(910.3, 254.7) },
@@ -311,17 +318,17 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(811.9, 350.5), new Ponto(838.9, 302.5), new Ponto(887.9, 302.5) },
 				"as_china", new Ponto(787, 289), 2);
 
-		Territorio Coreia_do_Norte = new Territorio("Coréia do Norte",
+		Territorio Coreia_do_Norte = new Territorio("Corï¿½ia do Norte",
 				new Ponto[] { new Ponto(839.0, 302.2), new Ponto(825.3, 326.1), new Ponto(914.9, 326.1),
 						new Ponto(908.2, 314.2), new Ponto(894.1, 314.2), new Ponto(888.0, 302.2) },
 				"as_coreiadonorte", new Ponto(857, 298), 2);
 
 		Territorio Coreia_do_Sul = new Territorio(
-				"Coréia do Sul", new Ponto[] { new Ponto(914.9, 326.1), new Ponto(922.1, 337.2),
+				"Corï¿½ia do Sul", new Ponto[] { new Ponto(914.9, 326.1), new Ponto(922.1, 337.2),
 						new Ponto(915.5, 350.0), new Ponto(811.9, 350.0), new Ponto(825.3, 326.1) },
 				"as_coreiadosul", new Ponto(884, 323), 3);
 
-		Territorio Estonia = new Territorio("Estônia",
+		Territorio Estonia = new Territorio("Estï¿½nia",
 				new Ponto[] { new Ponto(735.3, 123.8), new Ponto(659.5, 123.8), new Ponto(650.1, 144.1),
 						new Ponto(630.0, 144.1), new Ponto(614.8, 117.0), new Ponto(628.2, 117.0),
 						new Ponto(632.0, 124.2), new Ponto(644.4, 124.2), new Ponto(632.6, 101.5),
@@ -329,13 +336,13 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(626.8, 173.1), new Ponto(706.8, 173.1) },
 				"as_estonia", new Ponto(668, 135), 1);
 
-		Territorio India = new Territorio("Índia",
+		Territorio India = new Territorio("ï¿½ndia",
 				new Ponto[] { new Ponto(798.0, 450.3), new Ponto(763.8, 387.8), new Ponto(785.5, 351.2),
 						new Ponto(785.5, 350.0), new Ponto(847.8, 350.0), new Ponto(808.0, 420.0),
 						new Ponto(812.3, 427.5) },
 				"as_india", new Ponto(792, 376), 3);
 
-		Territorio Ira = new Territorio("Irã",
+		Territorio Ira = new Territorio("Irï¿½",
 				new Ponto[] { new Ponto(716.8, 310.2), new Ponto(701.1, 310.2), new Ponto(691.0, 329.0),
 						new Ponto(703.0, 351.2), new Ponto(716.5, 375.9), new Ponto(733.6, 375.9),
 						new Ponto(739.9, 387.8), new Ponto(751.3, 370.1) },
@@ -347,7 +354,7 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(671.9, 310.2), new Ponto(701.1, 310.2), new Ponto(691.0, 329.0) },
 				"as_iraque", new Ponto(671, 336), 3);
 
-		Territorio Japao = new Territorio("Japão",
+		Territorio Japao = new Territorio("Japï¿½o",
 				new Ponto[] { new Ponto(937.3, 222.4), new Ponto(956.3, 254.3), new Ponto(953.7, 257.5),
 						new Ponto(965.5, 276.8), new Ponto(955.4, 293.3), new Ponto(947.6, 293.3),
 						new Ponto(940.0, 307.4), new Ponto(921.9, 307.4), new Ponto(930.2, 293.0),
@@ -355,19 +362,19 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(943.7, 269.9), new Ponto(927.1, 239.4) },
 				"as_japao", new Ponto(941, 258), 1);
 
-		Territorio Jordania = new Territorio("Jordânia",
+		Territorio Jordania = new Territorio("Jordï¿½nia",
 				new Ponto[] { new Ponto(621.9, 378.5), new Ponto(612.8, 378.5), new Ponto(602.1, 357.1),
 						new Ponto(615.7, 337.6), new Ponto(633.6, 337.6), new Ponto(649.1, 310.2),
 						new Ponto(671.9, 310.2), new Ponto(654.0, 342.4), new Ponto(627.4, 388.2) },
 				"as_jordania", new Ponto(617, 342), 2);
 
-		Territorio Letonia = new Territorio("Letônia",
+		Territorio Letonia = new Territorio("Letï¿½nia",
 				new Ponto[] { new Ponto(610.2, 144.5), new Ponto(591.0, 176.0), new Ponto(583.6, 176.0),
 						new Ponto(611.2, 224.1), new Ponto(724.7, 224.1), new Ponto(739.0, 201.9),
 						new Ponto(724.7, 173.1), new Ponto(626.8, 173.1) },
 				"as_letonia", new Ponto(664, 186), 2);
 
-		Territorio Paquistao = new Territorio("Paquistão",
+		Territorio Paquistao = new Territorio("Paquistï¿½o",
 				new Ponto[] { new Ponto(763.8, 387.8), new Ponto(739.9, 387.8), new Ponto(751.3, 370.1),
 						new Ponto(708.9, 296.4), new Ponto(718.3, 278.9), new Ponto(764.7, 278.9),
 						new Ponto(754.8, 297.2), new Ponto(785.5, 348.8), new Ponto(785.5, 351.2) },
@@ -380,7 +387,7 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(869.9, 125.0) },
 				"as_russia", new Ponto(778, 146), 3);
 
-		Territorio Siberia = new Territorio("Sibéria",
+		Territorio Siberia = new Territorio("Sibï¿½ria",
 				new Ponto[] { new Ponto(949.4, 204.5), new Ponto(956.8, 191.1), new Ponto(940.9, 162.5),
 						new Ponto(947.1, 155.2), new Ponto(940.9, 144.4), new Ponto(954.0, 144.4),
 						new Ponto(937.8, 117.0), new Ponto(875.3, 117.0), new Ponto(870.6, 124.9),
@@ -396,7 +403,7 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(628.7, 275.8), new Ponto(646.1, 275.8), new Ponto(647.3, 272.8) },
 				"as_siria", new Ponto(665, 280), 2);
 
-		Territorio Tailandia = new Territorio("Tailândia",
+		Territorio Tailandia = new Territorio("Tailï¿½ndia",
 				new Ponto[] { new Ponto(915.5, 350.0), new Ponto(885.3, 350.0), new Ponto(859.2, 396.3),
 						new Ponto(879.9, 432.5), new Ponto(887.3, 446.2), new Ponto(895.1, 446.2),
 						new Ponto(901.8, 432.5), new Ponto(897.5, 426.0), new Ponto(901.8, 420.7),
@@ -413,14 +420,14 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(764.7, 278.9) },
 				"as_turquia", new Ponto(717, 237), 3);
 
-		Territorio Australia = new Territorio("Autrália",
+		Territorio Australia = new Territorio("Autrï¿½lia",
 				new Ponto[] { new Ponto(875.1, 539.4), new Ponto(885.9, 539.4), new Ponto(919.7, 598.0),
 						new Ponto(911.5, 611.8), new Ponto(917.6, 623.4), new Ponto(901.8, 650.0),
 						new Ponto(891.1, 650.0), new Ponto(877.6, 673.5), new Ponto(846.1, 673.5),
 						new Ponto(837.9, 655.8), new Ponto(823.4, 655.8), new Ponto(816.7, 641.9) },
 				"oc_australia", new Ponto(866, 603), 3);
 
-		Territorio Indonesia = new Territorio("Indonésia",
+		Territorio Indonesia = new Territorio("Indonï¿½sia",
 				new Ponto[] { new Ponto(850.9, 480.7), new Ponto(861.3, 500.4), new Ponto(880.7, 500.4),
 						new Ponto(887.7, 486.3), new Ponto(902.5, 486.3), new Ponto(907.6, 498.3),
 						new Ponto(925.2, 498.3), new Ponto(935.6, 517.9), new Ponto(943.8, 517.9),
@@ -430,7 +437,7 @@ public class ControllerTabuleiro extends Observable {
 						new Ponto(841.0, 480.7) },
 				"oc_indonesia", new Ponto(885, 492), 3);
 
-		Territorio Nova_Zelandia = new Territorio("Nova Zelândia",
+		Territorio Nova_Zelandia = new Territorio("Nova Zelï¿½ndia",
 				new Ponto[] { new Ponto(928.8, 601.5), new Ponto(936.9, 601.5), new Ponto(943.0, 613.7),
 						new Ponto(939.8, 616.5), new Ponto(944.2, 616.5), new Ponto(950.3, 628.6),
 						new Ponto(931.9, 661.5), new Ponto(926.6, 661.5), new Ponto(917.6, 678.5),
@@ -551,7 +558,7 @@ public class ControllerTabuleiro extends Observable {
 
 		// Adiciona os territorios aos continentes
 		for (Continente c : lstContinentes) {
-			if (c.getNome() == "América do norte") {
+			if (c.getNome() == "Amï¿½rica do norte") {
 				c.getLstTerritorios().add(Alasca);
 				c.getLstTerritorios().add(Calgary);
 				c.getLstTerritorios().add(Groelandia);
@@ -561,19 +568,19 @@ public class ControllerTabuleiro extends Observable {
 				c.getLstTerritorios().add(Texas);
 				c.getLstTerritorios().add(Nova_York);
 				c.getLstTerritorios().add(Mexico);
-			} else if (c.getNome() == "América do sul") {
+			} else if (c.getNome() == "Amï¿½rica do sul") {
 				c.getLstTerritorios().add(Venezuela);
 				c.getLstTerritorios().add(Peru);
 				c.getLstTerritorios().add(Brasil);
 				c.getLstTerritorios().add(Argentina);
-			} else if (c.getNome() == "África") {
+			} else if (c.getNome() == "ï¿½frica") {
 				c.getLstTerritorios().add(Africa_do_Sul);
 				c.getLstTerritorios().add(Somalia);
 				c.getLstTerritorios().add(Angola);
 				c.getLstTerritorios().add(Egito);
 				c.getLstTerritorios().add(Nigeria);
 				c.getLstTerritorios().add(Argelia);
-			} else if (c.getNome() == "Ásia") {
+			} else if (c.getNome() == "ï¿½sia") {
 				c.getLstTerritorios().add(Tailandia);
 				c.getLstTerritorios().add(Bangladesh);
 				c.getLstTerritorios().add(India);
@@ -642,10 +649,10 @@ public class ControllerTabuleiro extends Observable {
 			}
 		}
 
-		// Divide o número de continentes por 2
+		// Divide o nï¿½mero de continentes por 2
 		i = i / 2;
 
-		// Menor número de exércitos é 3
+		// Menor nï¿½mero de exï¿½rcitos ï¿½ 3
 		if (i < 3) {
 			i = 3;
 		}
@@ -680,14 +687,14 @@ public class ControllerTabuleiro extends Observable {
 
 	private void proxJogador() {
 
-		// Desmarca quem está ativo na lista de jogadores
+		// Desmarca quem estï¿½ ativo na lista de jogadores
 		for (model.Exercito e : controller.getLstJogadores()) {
 			if (e.isAtivo()) {
 				e.setAtivo();
 			}
 		}
 
-		// Move o iterator para o próximo jogador da lista de jogadores
+		// Move o iterator para o prï¿½ximo jogador da lista de jogadores
 		Exercito jogadorDaVez = null;
 
 		if (!itJogador.hasNext()) {
@@ -767,7 +774,7 @@ public class ControllerTabuleiro extends Observable {
 
 		deckObjetivos = DeckObjetivos.getInstance();
 
-		// Iterador da lsita de objetivos do deck de objetivos começando do
+		// Iterador da lsita de objetivos do deck de objetivos comeï¿½ando do
 		// indice 0
 		Iterator<Objetivo> itDeckObjetivo = deckObjetivos.getLstObjetivos().listIterator(0);
 
@@ -777,25 +784,25 @@ public class ControllerTabuleiro extends Observable {
 			// Pega o objetivo no iterador
 			Objetivo o = itDeckObjetivo.next();
 
-			// Se não é objetivo de destruir exercito
+			// Se nï¿½o ï¿½ objetivo de destruir exercito
 			if (o.getExercitoAlvo() == null) {
 
 				e.setObjetivo(o);
 
 			}
 
-			// Se for objetivo de destruir exército
+			// Se for objetivo de destruir exï¿½rcito
 			else if (getLstJogadores().contains(o.getExercitoAlvo())) {
 
-				// Se o exército alvo é o exercito da vez da distribuição dos
+				// Se o exï¿½rcito alvo ï¿½ o exercito da vez da distribuiï¿½ï¿½o dos
 				// objetivos
 				if (o.getExercitoAlvo() == e) {
 
-					// Seta o objetivo de 24 territórios
+					// Seta o objetivo de 24 territï¿½rios
 					e.setObjetivo(new Objetivo_1());
 				}
 
-				// Se o exército não é o exercito alvo,
+				// Se o exï¿½rcito nï¿½o ï¿½ o exercito alvo,
 				else {
 					// Seta o objetivo
 					e.setObjetivo(o);
@@ -828,7 +835,7 @@ public class ControllerTabuleiro extends Observable {
 				c.getTerritorio().addSoldado(new Soldado(e));
 			}
 		}
-		// Limpa a lista de cartas depois da distribuição
+		// Limpa a lista de cartas depois da distribuiï¿½ï¿½o
 		for (Exercito j : getLstJogadores()) {
 			j.getLstCartas().clear();
 		}
@@ -888,7 +895,7 @@ public class ControllerTabuleiro extends Observable {
 		zeraSoldadosImigrantes();
 		String mensagem = "Vez do Jogador " + jogadorDaVez.getNome() + " " + descobreJogadas().getNome();
 		if (descobreJogadas().getNome() == "Remanejar") {
-			mensagem += " (botão esquerdo seleciona origem, botão direito move soldados)";
+			mensagem += " (botï¿½o esquerdo seleciona origem, botï¿½o direito move soldados)";
 		}
 		setMensagem(mensagem);
 
@@ -988,7 +995,7 @@ public class ControllerTabuleiro extends Observable {
 			for (int i = qtdTroca; i > 0; i--) {
 				jogadorDaVez.getLstSoldados().add(new Soldado(jogadorDaVez));
 			}
-			String mensagem = "Você ganhou " + qtdTroca + " soldados pela troca";
+			String mensagem = "Vocï¿½ ganhou " + qtdTroca + " soldados pela troca";
 			// Incrementa a quantidade de exercitos para a proxima troca
 			somaTroca();
 
@@ -1102,7 +1109,7 @@ public class ControllerTabuleiro extends Observable {
 			}
 
 		} else {
-			setMensagem("Não é jogada de ataque");
+			setMensagem("Nï¿½o ï¿½ jogada de ataque");
 			notificaMudancas();
 		}
 
@@ -1119,7 +1126,7 @@ public class ControllerTabuleiro extends Observable {
 	}
 
 	private void notificaMudancas() {
-		// Se o objetivo do jogador da vez dor diferente de nulo e o jogo ainda não possuir vencedor
+		// Se o objetivo do jogador da vez dor diferente de nulo e o jogo ainda nï¿½o possuir vencedor
 		if (jogadorDaVez.getObjetivo() != null && vencedor == null) {
 			
 			// Se o check do objetivo do jogador for igual a true
@@ -1133,7 +1140,7 @@ public class ControllerTabuleiro extends Observable {
 		}
 
 		setChanged();
-		notifyObservers();
+		notifyObservers(this);
 	}
 
 	private void setVencedor() {
@@ -1246,7 +1253,7 @@ public class ControllerTabuleiro extends Observable {
 
 			if (t != null) {
 				Exercito e = t.getLstSoldados().get(0).getExercito();
-				// Jogada de distribuição
+				// Jogada de distribuiï¿½ï¿½o
 				if (descobreJogadas().getNome() == "Distribuir" && jogadorDaVez.getLstCartas().size() < 5) {
 
 					if (e == jogadorDaVez) { // Se o territorio clicado for do
@@ -1258,9 +1265,9 @@ public class ControllerTabuleiro extends Observable {
 
 						} else if (jogadorDaVez.getLstSoldados().size() > 0) {
 							setMensagem(
-									"Soldados existentes na reserva são soldados de bônus por conquista de continente.");
+									"Soldados existentes na reserva sï¿½o soldados de bï¿½nus por conquista de continente.");
 						} else {
-							setMensagem("Não há mais soldados na reserva");
+							setMensagem("Nï¿½o hï¿½ mais soldados na reserva");
 						}
 
 					}
@@ -1275,7 +1282,7 @@ public class ControllerTabuleiro extends Observable {
 							notificaMudancas();
 						}
 					} else {
-						// Se houver territorio origem e o territorio clicado está na lista de territorio
+						// Se houver territorio origem e o territorio clicado estï¿½ na lista de territorio
 						// de origem
 						if (getTerritorioOrigem() != null && getTerritorioOrigem().getLstFronteiras().contains(t)) { 
 							setTerritorioDestino(t);
@@ -1307,19 +1314,19 @@ public class ControllerTabuleiro extends Observable {
 									soldado.setImigrante();
 								} else {
 									setMensagem(
-											"Os soldados restantes são imigrantes e so poderão ser movidos na próxima rodada.");
+											"Os soldados restantes sï¿½o imigrantes e so poderï¿½o ser movidos na prï¿½xima rodada.");
 								}
 
 							} else {
 								if (getTerritorioOrigem().getLstFronteiras().contains(t)) {
-									setMensagem("Você não pode deixar seu território vazio");
+									setMensagem("Vocï¿½ nï¿½o pode deixar seu territï¿½rio vazio");
 								} else {
 									setMensagem("O territorio " + getTerritorioOrigem().getNome()
-											+ " não faz fronteira com o territororio " + t.getNome());
+											+ " nï¿½o faz fronteira com o territororio " + t.getNome());
 								}
 							}
 						} else {
-							setMensagem("O territorio " + t.getNome() + "  não pertence ao exercito "
+							setMensagem("O territorio " + t.getNome() + "  nï¿½o pertence ao exercito "
 									+ jogadorDaVez.getNome());
 						}
 					}
@@ -1354,6 +1361,55 @@ public class ControllerTabuleiro extends Observable {
 
 	public boolean validaTroca(HashSet<String> lstTroca) {
 		return false;
+	}
+	
+	public byte[] serialize() {
+		instanceLstJogadores = lstJogadores;
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		ObjectOutputStream out;
+		try {
+			out = new ObjectOutputStream(stream);
+			out.writeObject(this);
+			out.close();
+			stream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Could not serialize ControllerTabuleiro");
+		}
+		return stream.toByteArray();
+	}
+
+	@Override
+	public void update(Observable o, Object serializedObj) {
+		ByteArrayInputStream stream = new ByteArrayInputStream((byte[]) serializedObj);
+		ObjectInputStream input;
+		ControllerTabuleiro newController;
+		try {
+			input = new ObjectInputStream(stream);
+			newController = (ControllerTabuleiro) input.readObject();
+			input.close();
+			stream.close();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Could not deserialize ControllerTabuleiro");
+		}
+
+		lstJogadores = newController.instanceLstJogadores;
+		lstJogadas = newController.lstJogadas;
+		lstContinentes = newController.lstContinentes;
+		itJogador = newController.itJogador;
+		itJogada = newController.itJogada;
+		lstDadosAtaque = newController.lstDadosAtaque;
+		lstDadosDefesa = newController.lstDadosDefesa;
+		jogadorDaVez = newController.jogadorDaVez;
+		deck = newController.deck;
+		territorioOrigem = newController.territorioOrigem;
+		territorioDestino = newController.territorioDestino;
+		mensagem = newController.mensagem;
+		qtdTroca = newController.qtdTroca;
+		conquistouTerritorio = newController.conquistouTerritorio;
+		deckObjetivos = newController.deckObjetivos;
+		vencedor = newController.vencedor;
 	}
 
 }

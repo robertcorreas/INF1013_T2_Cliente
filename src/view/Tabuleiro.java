@@ -70,7 +70,7 @@ public class Tabuleiro extends JFrame implements Observer {
 		pnlCartasIcone.setToolTipText("Exibir as cartas");
 
 		ImageIcon imgCartasIcone = new ImageIcon(
-				"src/resources/Images/war_iconeCartas.png");
+				"src/resources/images/war_iconeCartas.png");
 
 		imgCartasIcone = new ImageIcon(imgCartasIcone.getImage().getScaledInstance(imgCartasIcone.getIconWidth(),imgCartasIcone.getIconHeight(),BufferedImage.SCALE_SMOOTH));
 		pnlCartasIcone.setIcon(imgCartasIcone); // Imagem das cartas
@@ -107,7 +107,7 @@ public class Tabuleiro extends JFrame implements Observer {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// Só pode abrir o painel enquanto a jogada atual for de distribuição
+				// Sï¿½ pode abrir o painel enquanto a jogada atual for de distribuiï¿½ï¿½o
 				if(controller.getJogadaAtual().getNome() == "Distribuir") {
 					if(pnlModalCartas.isVisible()) {
 						if(controller.getJogadorDaVez().getLstCartas().size() < 5)
@@ -221,7 +221,7 @@ public class Tabuleiro extends JFrame implements Observer {
 
 		JLabel linhasMapa = new JLabel();
 		ImageIcon imgTabuleiro = new ImageIcon(
-				"src/resources/Images/war_tabuleiro_linhas.png");
+				"src/resources/images/war_tabuleiro_linhas.png");
 
 		imgTabuleiro = new ImageIcon(imgTabuleiro.getImage().getScaledInstance(
 				imgTabuleiro.getIconWidth(), imgTabuleiro.getIconHeight(),
@@ -256,7 +256,7 @@ public class Tabuleiro extends JFrame implements Observer {
 		// Posicionamento e tamanho do JFrame (janela)
 		setBounds(Config.x, Config.y, Config.LARG_DEFAULT, Config.ALT_DEFAULT);
 
-		// Ação padrão ao fechar a janela
+		// Aï¿½ï¿½o padrï¿½o ao fechar a janela
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		repaint();
@@ -267,11 +267,11 @@ public class Tabuleiro extends JFrame implements Observer {
 
 		JLabel tabuleiro = new JLabel();
 		ImageIcon imgTabuleiro = new ImageIcon(
-				"src/resources/Images/war_tabuleiro_fundo.png");
+				"src/resources/images/war_tabuleiro_fundo.png");
 
 		imgTabuleiro = new ImageIcon(imgTabuleiro.getImage().getScaledInstance(imgTabuleiro.getIconWidth(), imgTabuleiro.getIconHeight(), BufferedImage.SCALE_SMOOTH));
 		tabuleiro.setIcon(imgTabuleiro); // Imagem de fundo do tabuleiro
-		tabuleiro.setToolTipText("Água");
+		tabuleiro.setToolTipText("ï¿½gua");
 
 		tabuleiro.setSize(imgTabuleiro.getIconWidth(),imgTabuleiro.getIconHeight());
 		add(tabuleiro).repaint();
@@ -282,7 +282,7 @@ public class Tabuleiro extends JFrame implements Observer {
 		Font fonteTitulo = new Font("Stencil", Font.PLAIN, 35);
 		JButton btnProxJogada = new JButton();
 		
-		ImageIcon imgBtnProxJogada = new ImageIcon("src/resources/Images/war_btnProxJogada.png");
+		ImageIcon imgBtnProxJogada = new ImageIcon("src/resources/images/war_btnProxJogada.png");
 		imgBtnProxJogada = new ImageIcon(imgBtnProxJogada.getImage().getScaledInstance(imgBtnProxJogada.getIconWidth(),	imgBtnProxJogada.getIconHeight(), BufferedImage.SCALE_SMOOTH));
 
 		btnProxJogada.setIcon(imgBtnProxJogada);
