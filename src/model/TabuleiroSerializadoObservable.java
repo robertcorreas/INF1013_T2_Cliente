@@ -3,7 +3,6 @@ package model;
 import java.util.Observable;
 import java.util.Observer;
 
-import cliente.Conexao;
 import controller.ControllerTabuleiro;
 
 public class TabuleiroSerializadoObservable extends Observable implements Observer {
@@ -12,8 +11,12 @@ public class TabuleiroSerializadoObservable extends Observable implements Observ
 	public void update(Observable o, Object tabuleiro) {
 		if(tabuleiro != null) {
 			System.out.println("tabuleiro não é nulo!");
-			setChanged();
-			notifyObservers(((ControllerTabuleiro) tabuleiro).serialize());
+			ControllerTabuleiro controller = (ControllerTabuleiro) tabuleiro;
+			if(!controller.serializerIgnore) {
+				setChanged();
+				notifyObservers(controller.serialize());
+			}
+			controller.serializerIgnore = false;
 		} else {
 			System.out.println("Tabuleiro é nulo!");
 		}

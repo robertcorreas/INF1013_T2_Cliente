@@ -19,8 +19,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
-import com.google.gson.Gson;
-
 import cliente.TabuleiroSerializable;
 import model.Carta;
 import model.Continente;
@@ -60,6 +58,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 	private boolean conquistouTerritorio;
 	private DeckObjetivos deckObjetivos;
 	private Exercito vencedor;
+	public boolean serializerIgnore = false;
 
 	// Bloco de inicializa��o das jogadas
 	{
@@ -1164,7 +1163,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 				telaVencedor();
 			}
 		}
-
+		
 		setChanged();
 		notifyObservers(this);
 	}
@@ -1393,7 +1392,6 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 	}
 
 	public byte[] serialize() {
-
 		TabuleiroSerializable tabuleiroSerializable = new TabuleiroSerializable();
 
 		tabuleiroSerializable.conquistouTerritorio = this.conquistouTerritorio;
@@ -1411,9 +1409,6 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		tabuleiroSerializable.territorioOrigem = this.territorioOrigem;
 		tabuleiroSerializable.vencedor = this.vencedor;
 
-		// Gson gson = new Gson();
-		// String json = gson.toJson(tabuleiroSerializable);
-
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		ObjectOutputStream out;
 		try {
@@ -1428,17 +1423,22 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 
 		
 
-		return stream.toByteArray();
+		byte[] boarr = stream.toByteArray();
+		byte[] serialized = new byte[boarr.length+5];
+	     for(int i = 0; i < boarr.length; i++) {
+	    	 serialized[i] = boarr[i];
+	     }
+	     serialized[boarr.length] = Byte.MAX_VALUE;
+	     serialized[boarr.length+1] = Byte.MAX_VALUE;
+	     serialized[boarr.length+2] = Byte.MAX_VALUE;
+	     serialized[boarr.length+3] = Byte.MAX_VALUE;
+	     serialized[boarr.length+4] = Byte.MAX_VALUE;
+	    
+	     return serialized;
 	}
 
 	@Override
 	public void update(Observable o, Object serializedObj) {
-
-//		String json = (String) serializedObj;
-//
-//		Gson gson = new Gson();
-//
-//		TabuleiroSerializable tabuleiroSerializable = gson.fromJson(json, TabuleiroSerializable.class);
 		
 		ByteArrayInputStream stream = new ByteArrayInputStream((byte[]) serializedObj);
 		ObjectInputStream input;
@@ -1451,6 +1451,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Could not deserialize ControllerTabuleiro");
+
 		}
 		
 
@@ -1468,6 +1469,10 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		this.territorioDestino = tabuleiroSerializable.territorioDestino;
 		this.territorioOrigem = tabuleiroSerializable.territorioOrigem;
 		this.vencedor = tabuleiroSerializable.vencedor;
+
+		System.out.println("Controller deserializado!!");
+		serializerIgnore = true;
+		notificaMudancas();
 	}
 
 }
