@@ -113,7 +113,7 @@ public class LblDado extends JLabel implements Observer {
 		}
 		
 		if(numero == 0) {
-			tipoString += "não utilizado";
+			tipoString += "nï¿½o utilizado";
 		}
 		
 		setToolTipText("Dado " + tipoString);
@@ -124,6 +124,7 @@ public class LblDado extends JLabel implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		this.controller = (ControllerTabuleiro) arg0;
 		CarregaImagem();
 		
 	}	

@@ -40,7 +40,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 	private JLabel lblTituloCartas = new JLabel();
 	private JLabel lblTituloObjetivo = new JLabel();
 	
-	//Bloco de inicialização das cartas e botões
+	//Bloco de inicializaï¿½ï¿½o das cartas e botï¿½es
 	{		
 		lstLblCartas.add(lblCarta1);
 		lstLblCartas.add(lblCarta2);
@@ -89,7 +89,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 					}				
 					
 				} else {
-					controller.setMensagem("Escolha três e somente três cartas.");
+					controller.setMensagem("Escolha trï¿½s e somente trï¿½s cartas.");
 				}
 				
 			}
@@ -308,6 +308,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		this.controller = (ControllerTabuleiro)o;
 		atualizaCartasTrocaJogador();
 		atualizaCartaObjetivo();
 		

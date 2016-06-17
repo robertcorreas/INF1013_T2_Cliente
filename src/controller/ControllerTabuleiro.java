@@ -42,7 +42,6 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 	private static ControllerTabuleiro controller;
 	private static List<model.Exercito> lstJogadores = new ArrayList<model.Exercito>();
 
-	private List<model.Exercito> instanceLstJogadores;
 	private List<Jogada> lstJogadas = new ArrayList<Jogada>();
 	private ArrayList<Continente> lstContinentes = new ArrayList<Continente>();
 	private transient Iterator<model.Exercito> itJogador = getLstJogadores().iterator();
@@ -1163,7 +1162,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 				telaVencedor();
 			}
 		}
-		
+
 		setChanged();
 		notifyObservers(this);
 	}
@@ -1391,6 +1390,44 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		return false;
 	}
 
+	private model.Exercito getCurrentValueOfJogadoresIterator() {
+
+		Iterator<model.Exercito> it = getLstJogadores().iterator();
+		model.Exercito current = this.itJogador.next();
+		int index = getLstJogadores().indexOf(current);
+
+		if (index == 0) {
+			return null;
+		}
+
+		for (int i = 0; i < index; i++) {
+			it.next();
+		}
+
+		this.itJogador = it;
+
+		return getLstJogadores().get(index - 1);
+	}
+
+	private model.Jogada getCurrentValueOfJogadasIterator() {
+
+		Iterator<model.Jogada> it = getLstJogadas().iterator();
+		model.Jogada current = this.itJogada.next();
+		int index = getLstJogadas().indexOf(current);
+
+		if (index == 0) {
+			return null;
+		}
+
+		for (int i = 0; i < index; i++) {
+			it.next();
+		}
+
+		this.itJogada = it;
+
+		return getLstJogadas().get(index - 1);
+	}
+
 	public byte[] serialize() {
 		TabuleiroSerializable tabuleiroSerializable = new TabuleiroSerializable();
 
@@ -1409,6 +1446,9 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		tabuleiroSerializable.territorioOrigem = this.territorioOrigem;
 		tabuleiroSerializable.vencedor = this.vencedor;
 
+		tabuleiroSerializable.iteradorAtualDoJogador = getCurrentValueOfJogadoresIterator();
+		tabuleiroSerializable.iteradorAtualJogada = getCurrentValueOfJogadasIterator();
+
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		ObjectOutputStream out;
 		try {
@@ -1421,25 +1461,23 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 			throw new RuntimeException("Could not serialize ControllerTabuleiro");
 		}
 
-		
-
 		byte[] boarr = stream.toByteArray();
-		byte[] serialized = new byte[boarr.length+5];
-	     for(int i = 0; i < boarr.length; i++) {
-	    	 serialized[i] = boarr[i];
-	     }
-	     serialized[boarr.length] = Byte.MAX_VALUE;
-	     serialized[boarr.length+1] = Byte.MAX_VALUE;
-	     serialized[boarr.length+2] = Byte.MAX_VALUE;
-	     serialized[boarr.length+3] = Byte.MAX_VALUE;
-	     serialized[boarr.length+4] = Byte.MAX_VALUE;
-	    
-	     return serialized;
+		byte[] serialized = new byte[boarr.length + 5];
+		for (int i = 0; i < boarr.length; i++) {
+			serialized[i] = boarr[i];
+		}
+		serialized[boarr.length] = Byte.MAX_VALUE;
+		serialized[boarr.length + 1] = Byte.MAX_VALUE;
+		serialized[boarr.length + 2] = Byte.MAX_VALUE;
+		serialized[boarr.length + 3] = Byte.MAX_VALUE;
+		serialized[boarr.length + 4] = Byte.MAX_VALUE;
+
+		return serialized;
 	}
 
 	@Override
 	public void update(Observable o, Object serializedObj) {
-		
+
 		ByteArrayInputStream stream = new ByteArrayInputStream((byte[]) serializedObj);
 		ObjectInputStream input;
 		TabuleiroSerializable tabuleiroSerializable;
@@ -1453,10 +1491,10 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 			throw new RuntimeException("Could not deserialize ControllerTabuleiro");
 
 		}
-		
 
 		this.conquistouTerritorio = tabuleiroSerializable.conquistouTerritorio;
 		this.deck = tabuleiroSerializable.deck;
+		this.deck.controller = this;
 		this.deckObjetivos = tabuleiroSerializable.deckObjetivos;
 		this.jogadorDaVez = tabuleiroSerializable.jogadorDaVez;
 		this.lstContinentes = tabuleiroSerializable.lstContinentes;
@@ -1469,6 +1507,44 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		this.territorioDestino = tabuleiroSerializable.territorioDestino;
 		this.territorioOrigem = tabuleiroSerializable.territorioOrigem;
 		this.vencedor = tabuleiroSerializable.vencedor;
+
+		if (tabuleiroSerializable.iteradorAtualDoJogador == null) {
+			this.itJogador = getLstJogadores().iterator();
+		} else {
+
+			Iterator<model.Exercito> it = getLstJogadores().iterator();
+
+			while (it.hasNext()) {
+				model.Exercito current = it.next();
+				if (current.getNome() == tabuleiroSerializable.iteradorAtualDoJogador.getNome()
+						&& current.getObjetivo() == tabuleiroSerializable.iteradorAtualDoJogador.getObjetivo())
+					break;
+			}
+
+			this.itJogador = it;
+
+		}
+
+		if (tabuleiroSerializable.iteradorAtualJogada == null) {
+			this.itJogada = getLstJogadas().iterator();
+		} else {
+
+			Iterator<model.Jogada> it = getLstJogadas().iterator();
+
+			while (it.hasNext()) {
+				model.Jogada current = it.next();
+				if (current.getNome() == tabuleiroSerializable.iteradorAtualJogada.getNome()
+						&& current.isAtivo() == tabuleiroSerializable.iteradorAtualJogada.isAtivo())
+					break;
+				if (it.next() == tabuleiroSerializable.iteradorAtualJogada)
+					break;
+			}
+
+			this.itJogada = it;
+
+		}
+		
+		ControllerTabuleiro.controller = this;
 
 		System.out.println("Controller deserializado!!");
 		serializerIgnore = true;

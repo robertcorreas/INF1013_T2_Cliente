@@ -50,9 +50,9 @@ public class PnlJogadas extends JPanel implements Observer{
 		lblJogadaAtacar.setForeground(Color.WHITE);
 		lblJogadaRemanejar.setForeground(Color.WHITE);
 
-		lblJogadaDistribuir.setToolTipText("Clique no território desejado quantas vezes forem os soldados que desejar adicionar");
-		lblJogadaAtacar.setToolTipText("Clique no território atacante e em seguida no atacado. Feito isso, jogue os dados");
-		lblJogadaRemanejar.setToolTipText("Clique com o botão esquerdo no territorio doador e com o botão direito no território receptor, quantas vezes forem os soldados que desejar remanejar para ele");
+		lblJogadaDistribuir.setToolTipText("Clique no territï¿½rio desejado quantas vezes forem os soldados que desejar adicionar");
+		lblJogadaAtacar.setToolTipText("Clique no territï¿½rio atacante e em seguida no atacado. Feito isso, jogue os dados");
+		lblJogadaRemanejar.setToolTipText("Clique com o botï¿½o esquerdo no territorio doador e com o botï¿½o direito no territï¿½rio receptor, quantas vezes forem os soldados que desejar remanejar para ele");
 		
 		
 		setLayout(new FlowLayout());
@@ -83,6 +83,7 @@ public class PnlJogadas extends JPanel implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
+		this.controller = (ControllerTabuleiro)o;
 		atualizaIndicadorJogada();
 		
 	}

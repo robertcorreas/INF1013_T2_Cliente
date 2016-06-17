@@ -106,7 +106,7 @@ public class PnlMapa extends JPanel implements Observer {
 					if(
 							controller.getTerritorioOrigem() != null // Se houver territorio de origem
 							&& controller.getTerritorioOrigem().getLstFronteiras().contains(t) // & o territorio clicado estiver na lista de territorios de fronteiras do territorio de origem
-							&& controller.getTerritorioDestino() != t // & o territorio clicado não for o territorio de destino 
+							&& controller.getTerritorioDestino() != t // & o territorio clicado nï¿½o for o territorio de destino 
 							&& controller.getTerritorioOrigem().getLstSoldados().get(0).getExercito() != t.getLstSoldados().get(0).getExercito() // & O territorio clicado nao pertencer ao jogador atual
 					) {
 						corBg = c.getCor().brighter();	
@@ -115,7 +115,7 @@ public class PnlMapa extends JPanel implements Observer {
 					if(
 							controller.getTerritorioOrigem() != null // Se houver territorio de origem
 							&& controller.getTerritorioOrigem().getLstFronteiras().contains(t) // & o territorio clicado estiver na lista de territorios de fronteiras do territorio de origem
-							&& controller.getTerritorioDestino() != t // & o territorio clicado não for o territorio de destino 
+							&& controller.getTerritorioDestino() != t // & o territorio clicado nï¿½o for o territorio de destino 
 							&& controller.getTerritorioOrigem().getLstSoldados().get(0).getExercito() == t.getLstSoldados().get(0).getExercito() // & O territorio clicado nao pertencer ao jogador atual
 					) {
 						corBg = c.getCor().brighter();	
@@ -142,6 +142,7 @@ public class PnlMapa extends JPanel implements Observer {
 	
 	@Override
 	public void update(Observable o, Object arg) {
+		this.controller = (ControllerTabuleiro)o;
 		repaint();		
 	}
 

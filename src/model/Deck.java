@@ -11,7 +11,7 @@ public class Deck implements Serializable {
 	
 	private static Deck deck;
 	private ArrayList<Carta> lstCartas = new ArrayList<Carta>();
-	ControllerTabuleiro controller = ControllerTabuleiro.getInstance();
+	public ControllerTabuleiro controller = ControllerTabuleiro.getInstance();
 	
 	private Deck(){
 		carregaCartas();
