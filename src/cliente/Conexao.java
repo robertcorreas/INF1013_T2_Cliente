@@ -46,7 +46,7 @@ public class Conexao implements Observer {
 		try {
 			System.out.println("Enviei tabuleiro!");
 			saida = new PrintStream(this.socket.getOutputStream());
-			saida.write((byte[]) msg);
+			saida.write((byte[])msg);
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Could not send information through connection with server.");

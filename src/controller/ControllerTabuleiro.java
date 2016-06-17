@@ -8,9 +8,32 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Random;
 
-import model.*;
+import com.google.gson.Gson;
+
+import cliente.TabuleiroSerializable;
+import model.Carta;
+import model.Continente;
+import model.Dado;
+import model.Deck;
+import model.DeckObjetivos;
+import model.Exercito;
+import model.Jogada;
+import model.Objetivo;
+import model.Objetivo_1;
+import model.Ponto;
+import model.Soldado;
+import model.Territorio;
 
 /**
  * @author Pedro
@@ -78,7 +101,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 	}
 
 	private ControllerTabuleiro() {
-		
+
 	}
 
 	public int getQtdTroca() {
@@ -746,8 +769,8 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 			}
 			e.getLstCartas().clear();
 		}
-		
-		//notificaMudancas();
+
+		// notificaMudancas();
 
 		return false;
 
@@ -1126,14 +1149,17 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 	}
 
 	private void notificaMudancas() {
-		// Se o objetivo do jogador da vez dor diferente de nulo e o jogo ainda n�o possuir vencedor
+		// Se o objetivo do jogador da vez dor diferente de nulo e o jogo ainda
+		// n�o possuir vencedor
 		if (jogadorDaVez.getObjetivo() != null && vencedor == null) {
-			
+
 			// Se o check do objetivo do jogador for igual a true
-			if (jogadorDaVez.getObjetivo().getExercitoAlvo() == null && jogadorDaVez.getObjetivo().Check(lstContinentes, jogadorDaVez)) {
+			if (jogadorDaVez.getObjetivo().getExercitoAlvo() == null
+					&& jogadorDaVez.getObjetivo().Check(lstContinentes, jogadorDaVez)) {
 				setVencedor();
 				telaVencedor();
-			} else if(jogadorDaVez.getObjetivo().getExercitoAlvo() != null && jogadorDaVez.getObjetivo().Check(lstContinentes, jogadorDaVez.getObjetivo().getExercitoAlvo())) {
+			} else if (jogadorDaVez.getObjetivo().getExercitoAlvo() != null
+					&& jogadorDaVez.getObjetivo().Check(lstContinentes, jogadorDaVez.getObjetivo().getExercitoAlvo())) {
 				setVencedor();
 				telaVencedor();
 			}
@@ -1276,15 +1302,18 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 
 				// Jogada de Ataque
 				if (descobreJogadas().getNome() == "Atacar") {
-					if (e == jogadorDaVez) { // Se o territorio for do jogador da vez
+					if (e == jogadorDaVez) { // Se o territorio for do jogador
+												// da vez
 						if (t.getLstSoldados().size() > 1) {
-							setTerritorioOrigem(t); // Seta o territorio clicado como territorio de origem
+							setTerritorioOrigem(t); // Seta o territorio clicado
+													// como territorio de origem
 							notificaMudancas();
 						}
 					} else {
-						// Se houver territorio origem e o territorio clicado est� na lista de territorio
+						// Se houver territorio origem e o territorio clicado
+						// est� na lista de territorio
 						// de origem
-						if (getTerritorioOrigem() != null && getTerritorioOrigem().getLstFronteiras().contains(t)) { 
+						if (getTerritorioOrigem() != null && getTerritorioOrigem().getLstFronteiras().contains(t)) {
 							setTerritorioDestino(t);
 						}
 					}
@@ -1362,54 +1391,83 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 	public boolean validaTroca(HashSet<String> lstTroca) {
 		return false;
 	}
-	
+
 	public byte[] serialize() {
-		instanceLstJogadores = lstJogadores;
+
+		TabuleiroSerializable tabuleiroSerializable = new TabuleiroSerializable();
+
+		tabuleiroSerializable.conquistouTerritorio = this.conquistouTerritorio;
+		tabuleiroSerializable.deck = this.deck;
+		tabuleiroSerializable.deckObjetivos = this.deckObjetivos;
+		tabuleiroSerializable.jogadorDaVez = this.jogadorDaVez;
+		tabuleiroSerializable.lstContinentes = this.lstContinentes;
+		tabuleiroSerializable.lstDadosAtaque = this.lstDadosAtaque;
+		tabuleiroSerializable.lstDadosDefesa = this.lstDadosDefesa;
+		tabuleiroSerializable.lstJogadas = this.lstJogadas;
+		tabuleiroSerializable.lstJogadores = ControllerTabuleiro.lstJogadores;
+		tabuleiroSerializable.mensagem = this.mensagem;
+		tabuleiroSerializable.qtdTroca = this.qtdTroca;
+		tabuleiroSerializable.territorioDestino = this.territorioDestino;
+		tabuleiroSerializable.territorioOrigem = this.territorioOrigem;
+		tabuleiroSerializable.vencedor = this.vencedor;
+
+		// Gson gson = new Gson();
+		// String json = gson.toJson(tabuleiroSerializable);
+
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		ObjectOutputStream out;
 		try {
 			out = new ObjectOutputStream(stream);
-			out.writeObject(this);
+			out.writeObject(tabuleiroSerializable);
 			out.close();
 			stream.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Could not serialize ControllerTabuleiro");
 		}
+
+		
+
 		return stream.toByteArray();
 	}
 
 	@Override
 	public void update(Observable o, Object serializedObj) {
+
+//		String json = (String) serializedObj;
+//
+//		Gson gson = new Gson();
+//
+//		TabuleiroSerializable tabuleiroSerializable = gson.fromJson(json, TabuleiroSerializable.class);
+		
 		ByteArrayInputStream stream = new ByteArrayInputStream((byte[]) serializedObj);
 		ObjectInputStream input;
-		ControllerTabuleiro newController;
+		TabuleiroSerializable tabuleiroSerializable;
 		try {
 			input = new ObjectInputStream(stream);
-			newController = (ControllerTabuleiro) input.readObject();
+			tabuleiroSerializable = (TabuleiroSerializable) input.readObject();
 			input.close();
 			stream.close();
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Could not deserialize ControllerTabuleiro");
 		}
+		
 
-		lstJogadores = newController.instanceLstJogadores;
-		lstJogadas = newController.lstJogadas;
-		lstContinentes = newController.lstContinentes;
-		itJogador = newController.itJogador;
-		itJogada = newController.itJogada;
-		lstDadosAtaque = newController.lstDadosAtaque;
-		lstDadosDefesa = newController.lstDadosDefesa;
-		jogadorDaVez = newController.jogadorDaVez;
-		deck = newController.deck;
-		territorioOrigem = newController.territorioOrigem;
-		territorioDestino = newController.territorioDestino;
-		mensagem = newController.mensagem;
-		qtdTroca = newController.qtdTroca;
-		conquistouTerritorio = newController.conquistouTerritorio;
-		deckObjetivos = newController.deckObjetivos;
-		vencedor = newController.vencedor;
+		this.conquistouTerritorio = tabuleiroSerializable.conquistouTerritorio;
+		this.deck = tabuleiroSerializable.deck;
+		this.deckObjetivos = tabuleiroSerializable.deckObjetivos;
+		this.jogadorDaVez = tabuleiroSerializable.jogadorDaVez;
+		this.lstContinentes = tabuleiroSerializable.lstContinentes;
+		this.lstDadosAtaque = tabuleiroSerializable.lstDadosAtaque;
+		this.lstDadosDefesa = tabuleiroSerializable.lstDadosDefesa;
+		this.lstJogadas = tabuleiroSerializable.lstJogadas;
+		ControllerTabuleiro.lstJogadores = tabuleiroSerializable.lstJogadores;
+		this.mensagem = tabuleiroSerializable.mensagem;
+		this.qtdTroca = tabuleiroSerializable.qtdTroca;
+		this.territorioDestino = tabuleiroSerializable.territorioDestino;
+		this.territorioOrigem = tabuleiroSerializable.territorioOrigem;
+		this.vencedor = tabuleiroSerializable.vencedor;
 	}
 
 }
