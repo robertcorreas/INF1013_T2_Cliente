@@ -735,7 +735,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 	private Exercito descobreExercito(String nome) {
 		Exercito jogador = null;
 		for (Exercito e : lstJogadores) {
-			if (e.getNome() == nome) {
+			if (e.getNome().equals(nome)) {
 				jogador = e;
 			}
 		}
