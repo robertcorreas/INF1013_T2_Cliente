@@ -22,8 +22,8 @@ public class TratadorProximaJogada extends Observable implements Runnable {
 		return tratador;
 	}
 
-	@Override
-	public void run() {
+ 	@Override
+ 	public void run() {
 		try {
 			InputStream in = socket.getInputStream();
 			
@@ -53,19 +53,18 @@ public class TratadorProximaJogada extends Observable implements Runnable {
 			e.printStackTrace();
 		}
 		
-		
-		Scanner in_serv;
-		try {
-			in_serv = new Scanner(socket.getInputStream());
-			while (in_serv.hasNextLine()) {
-				System.out.println("Recebi tabuleiro!");
-				setChanged();
-				notifyObservers(in_serv.nextLine());
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
+//		
+// 		Scanner in_serv;
+// 		try {
+// 			in_serv = new Scanner(socket.getInputStream());
+// 			while (in_serv.hasNextLine()) {
+// 				System.out.println("Recebi tabuleiro!");
+//				setChanged();
+// 				notifyObservers(in_serv.nextLine());
+// 			}
+// 		} catch (IOException e) {
+// 			
+// 		}
+ 	}
 
 }

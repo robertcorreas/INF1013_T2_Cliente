@@ -19,6 +19,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
+import com.google.gson.Gson;
+
 import cliente.TabuleiroSerializable;
 import model.Carta;
 import model.Continente;
@@ -1393,6 +1395,12 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 	private model.Exercito getCurrentValueOfJogadoresIterator() {
 
 		Iterator<model.Exercito> it = getLstJogadores().iterator();
+		
+		if (this.itJogador.hasNext() == false) {
+			return getLstJogadores().get(getLstJogadores().size() - 1);
+
+		}
+		
 		model.Exercito current = this.itJogador.next();
 		int index = getLstJogadores().indexOf(current);
 
@@ -1412,6 +1420,10 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 	private model.Jogada getCurrentValueOfJogadasIterator() {
 
 		Iterator<model.Jogada> it = getLstJogadas().iterator();
+		if (this.itJogada.hasNext() == false) {
+			return getLstJogadas().get(getLstJogadas().size() - 1);
+
+		}
 		model.Jogada current = this.itJogada.next();
 		int index = getLstJogadas().indexOf(current);
 
@@ -1448,6 +1460,12 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 
 		tabuleiroSerializable.iteradorAtualDoJogador = getCurrentValueOfJogadoresIterator();
 		tabuleiroSerializable.iteradorAtualJogada = getCurrentValueOfJogadasIterator();
+
+		// Gson gson = new Gson();
+		//
+		// String json = gson.toJson(tabuleiroSerializable);
+		//
+		// return json;
 
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		ObjectOutputStream out;
@@ -1491,10 +1509,13 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 			throw new RuntimeException("Could not deserialize ControllerTabuleiro");
 
 		}
-
+		
+		// Gson gson = new Gson();
+		// TabuleiroSerializable tabuleiroSerializable =
+		// gson.fromJson((String)json, TabuleiroSerializable.class);
+		
 		this.conquistouTerritorio = tabuleiroSerializable.conquistouTerritorio;
 		this.deck = tabuleiroSerializable.deck;
-		this.deck.controller = this;
 		this.deckObjetivos = tabuleiroSerializable.deckObjetivos;
 		this.jogadorDaVez = tabuleiroSerializable.jogadorDaVez;
 		this.lstContinentes = tabuleiroSerializable.lstContinentes;
@@ -1543,7 +1564,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 			this.itJogada = it;
 
 		}
-		
+
 		ControllerTabuleiro.controller = this;
 
 		System.out.println("Controller deserializado!!");

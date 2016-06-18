@@ -22,7 +22,7 @@ public class Conexao implements Observer {
 
 	private static Socket getSocket() {
 		try {
-			return new Socket("127.0.0.1", 5001);
+			return new Socket("127.0.0.1", 5500);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -39,14 +39,26 @@ public class Conexao implements Observer {
 	public void addParaSincronizar(Observer o) {
 		tratador.addObserver(o);
 	}
-
-	@Override
-	public void update(Observable o, Object msg) {
+	
+	public void EnviarTabuleiro(byte[] tabuleiro){
 		PrintStream saida;
 		try {
 			System.out.println("Enviei tabuleiro!");
 			saida = new PrintStream(this.socket.getOutputStream());
-			saida.write((byte[])msg);
+			saida.write(tabuleiro);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Could not send information through connection with server.");
+		}
+	}
+
+	@Override
+	public void update(Observable o, Object msg) { // envia o tabuleiro para o servidor
+		PrintStream saida;
+		try {
+			System.out.println("Enviei tabuleiro!");
+			saida = new PrintStream(this.socket.getOutputStream());
+			saida.println((String)msg);
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Could not send information through connection with server.");
