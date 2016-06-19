@@ -26,7 +26,7 @@ public class Configuracao extends JFrame {
 	private ArrayList<view.Exercito> lstExercitos = new ArrayList<view.Exercito>();
 	private ArrayList<view.Exercito> lstJogadores = new ArrayList<Exercito>();
 	
-	// Bloco de inicializa��o dos exercitos
+	// Bloco de inicializaÃ§Ã£o dos exercitos
 		{
 			lstExercitos.add(new view.Exercito("Laranja", 	new Color(209, 84, 000)));
 			lstExercitos.add(new view.Exercito("Vermelho",	new Color(255, 003, 003)));
@@ -49,7 +49,7 @@ public class Configuracao extends JFrame {
 		lblTxtInicio.setBounds(20, 200, 350, 90);
 		lblTxtInicio.setFont(new Font("Stencil", Font.PLAIN, 18));
 		lblTxtInicio.setForeground(Color.white);
-		lblTxtInicio.setText("Selecione pelo menos 3 ex�rcitos \ne clique em iniciar jogo");
+		lblTxtInicio.setText("Selecione pelo menos 3 exÃ©rcitos \ne clique em iniciar jogo");
 		lblTxtInicio.setOpaque(false);
 		
 		add(lblTxtInicio);
@@ -65,7 +65,7 @@ public class Configuracao extends JFrame {
 		// Zerando a lista de jogadores
 		lstJogadores.clear();
 		
-		// Lendro a lista de exercitos, adicionando � lista de jogadores se o ex�rcito est� selecionado
+		// Lendro a lista de exercitos, adicionando Ã© lista de jogadores se o exÃ©rcito estÃ¡ selecionado
 		for(Exercito e: getLstexercitos()) {
 			if (e.isSelecionado()) {
 				lstJogadores.add(e);
@@ -136,7 +136,7 @@ public class Configuracao extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				if (validaJogadores()){
-					// Esconde a janela de configura��o do jogo.
+					// Esconde a janela de configuraÃ§Ã£o do jogo.
 					setVisible(false);
 				};
 							

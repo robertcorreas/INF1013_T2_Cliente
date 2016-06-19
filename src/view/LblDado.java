@@ -113,7 +113,7 @@ public class LblDado extends JLabel implements Observer {
 		}
 		
 		if (numero==0) {
-			tipoString += "não utilizado";
+			tipoString += "nÃ£o utilizado";
 		}
 		
 		setToolTipText("Dado " + tipoString);

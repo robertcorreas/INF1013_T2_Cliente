@@ -12,7 +12,7 @@ public class PnlBoneco extends JPanel {
 	protected Color cor;
 	protected GeneralPath exercitoShape;
 	
-	// Bloco de inicialização do shape do desenho do exército
+	// Bloco de inicializaÃ§Ã£o do shape do desenho do exÃ©rcito
 	{
 		
 		exercitoShape = new GeneralPath(GeneralPath.WIND_EVEN_ODD);

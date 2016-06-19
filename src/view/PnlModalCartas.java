@@ -40,7 +40,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 	private JLabel lblTituloCartas = new JLabel();
 	private JLabel lblTituloObjetivo = new JLabel();
 	
-	//Bloco de inicializa��o das cartas e bot�es
+	//Bloco de inicializaÃ§Ã£o das cartas e botÃµes
 	{		
 		lstLblCartas.add(lblCarta1);
 		lstLblCartas.add(lblCarta2);
@@ -89,7 +89,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 					}				
 					
 				} else {
-					controller.setMensagem("Escolha tr�s e somente tr�s cartas.");
+					controller.setMensagem("Escolha trÃªs e somente trÃªs cartas.");
 				}
 				
 			}

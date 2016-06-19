@@ -1,4 +1,4 @@
-//Conquistar na totalidade a AM…RICA DO NORTE e a ¡FRICA.
+//Conquistar na totalidade a AM√âRICA DO NORTE e a √ÅFRICA.
 
 package model;
 
@@ -15,14 +15,14 @@ public class Objetivo_4 extends Objetivo {
 	public boolean Check(ArrayList<Continente> lstContinentes, Exercito e) {
 
 		for (Continente c : lstContinentes) {
-			if (c.getNome().equals("¡frica")) {
+			if (c.getNome().equals("√Åfrica")) {
 				for (Territorio t : c.getLstTerritorios()) {
 					if (Comparator.notEquals(t.getLstSoldados().get(0).getExercito(), e)) {
 						return false;
 					}
 				}
 			}
-			if (c.getNome().equals("AmÈrica do norte")){
+			if (c.getNome().equals("Am√©rica do norte")){
 				for(Territorio t: c.getLstTerritorios()){
 					if (Comparator.notEquals(t.getLstSoldados().get(0).getExercito(), e)){
 						return false;

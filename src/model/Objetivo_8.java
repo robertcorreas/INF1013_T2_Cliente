@@ -1,4 +1,4 @@
-//Conquistar 18 TERRITÓRIOS e ocupar cada um deles com pelo menos dois exércitos.
+//Conquistar 18 TERRITÃ“RIOS e ocupar cada um deles com pelo menos dois exÃ©rcitos.
 
 package model;
 

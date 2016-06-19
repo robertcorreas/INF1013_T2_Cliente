@@ -11,7 +11,7 @@ public class TabuleiroSerializadoObservable extends Observable implements Observ
 	@Override
 	public void update(Observable o, Object tabuleiro) { // controller notifica
 		if (tabuleiro!=null) {
-			System.out.println("tabuleiro não é nulo!");
+			System.out.println("tabuleiro nÃ£o Ã© nulo!");
 			ControllerTabuleiro controller = (ControllerTabuleiro) tabuleiro;
 			if (!controller.serializerIgnore) {
 				Conexao.getInstance().EnviarTabuleiro(controller.serialize());
@@ -21,7 +21,7 @@ public class TabuleiroSerializadoObservable extends Observable implements Observ
 			}
 			controller.serializerIgnore = false;
 		} else {
-			System.out.println("Tabuleiro é nulo!");
+			System.out.println("Tabuleiro Ã© nulo!");
 		}
 	}
 

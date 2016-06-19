@@ -50,9 +50,9 @@ public class PnlJogadas extends JPanel implements Observer{
 		lblJogadaAtacar.setForeground(Color.WHITE);
 		lblJogadaRemanejar.setForeground(Color.WHITE);
 
-		lblJogadaDistribuir.setToolTipText("Clique no territ�rio desejado quantas vezes forem os soldados que desejar adicionar");
-		lblJogadaAtacar.setToolTipText("Clique no territ�rio atacante e em seguida no atacado. Feito isso, jogue os dados");
-		lblJogadaRemanejar.setToolTipText("Clique com o bot�o esquerdo no territorio doador e com o bot�o direito no territ�rio receptor, quantas vezes forem os soldados que desejar remanejar para ele");
+		lblJogadaDistribuir.setToolTipText("Clique no territÃ³rio desejado quantas vezes forem os soldados que desejar adicionar");
+		lblJogadaAtacar.setToolTipText("Clique no territÃ³rio atacante e em seguida no atacado. Feito isso, jogue os dados");
+		lblJogadaRemanejar.setToolTipText("Clique com o botÃ£o esquerdo no territorio doador e com o botÃ£o direito no territÃ³rio receptor, quantas vezes forem os soldados que desejar remanejar para ele");
 		
 		
 		setLayout(new FlowLayout());

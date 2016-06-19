@@ -27,7 +27,7 @@ public class Continente implements Serializable {
 	}
 
 	/**
-	 * Retorna a cor do territ�rio
+	 * Retorna a cor do territÃ³rio
 	 * @return
 	 */
 	public Color getCor() {
@@ -35,7 +35,7 @@ public class Continente implements Serializable {
 	}
 	
 	/**
-	 * Retorna o nome do territ�rio
+	 * Retorna o nome do territÃ³rio
 	 * @return
 	 */
 	public String getNome() {
@@ -43,7 +43,7 @@ public class Continente implements Serializable {
 	}
 	
 	/**
-	 * Retorna o bonus do territ�rio
+	 * Retorna o bonus do territÃ³rio
 	 * @return
 	 */
 	public int getBonus() {
@@ -60,7 +60,7 @@ public class Continente implements Serializable {
 	
 	/**
 	 * Adiciona o territorio passado como parametro na lista de territorios deste continente
-	 * @param t = uma inst�ncia de territorio
+	 * @param t = uma instÃ¢ncia de territorio
 	 */
 	public void addTerritorio(Territorio t) {
 		lstTerritorio.add(t);

@@ -13,10 +13,10 @@ public class Dado extends Observable implements Comparable<Dado>, Serializable {
 
 	public Dado(char tipo) {
 		
-		// Seta o tipo do dado, se � de ataque (a) ou defesa (d)
+		// Seta o tipo do dado, se Ã© de ataque (a) ou defesa (d)
 		this.tipo = tipo;
 		
-		//inicializa todos os dados com o n�mero 6
+		//inicializa todos os dados com o nÃºmero 6
 		this.numero = 0;
 	}
 	

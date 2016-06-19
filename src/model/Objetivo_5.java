@@ -1,4 +1,4 @@
-//Conquistar na totalidade a AMÉRICA DO NORTE e a OCEANIA.
+//Conquistar na totalidade a AMÃ‰RICA DO NORTE e a OCEANIA.
 
 package model;
 
@@ -22,7 +22,7 @@ public class Objetivo_5 extends Objetivo {
 					}
 				}
 			}
-			if (c.getNome().equals("América do norte")){
+			if (c.getNome().equals("AmÃ©rica do norte")){
 				for(Territorio t: c.getLstTerritorios()){
 					if (Comparator.notEquals(t.getLstSoldados().get(0).getExercito(), e)){
 						return false;

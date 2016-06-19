@@ -1,4 +1,4 @@
-//Conquistar na totalidade a ASIA e a AM…RICA DO SUL.
+//Conquistar na totalidade a ASIA e a AM√âRICA DO SUL.
 
 package model;
 
@@ -15,14 +15,14 @@ public class Objetivo_3 extends Objetivo {
 	public boolean Check(ArrayList<Continente> lstContinentes, Exercito e) {
 	
 		for (Continente c : lstContinentes) {
-			if (c.getNome().equals("¡sia")) {
+			if (c.getNome().equals("√Åsia")) {
 				for (Territorio t : c.getLstTerritorios()) {
 					if (Comparator.notEquals(t.getLstSoldados().get(0).getExercito(), e)) {
 						return false;
 					}
 				}
 			}
-			if (c.getNome().equals("AmÈrica do sul")){
+			if (c.getNome().equals("Am√©rica do sul")){
 				for(Territorio t: c.getLstTerritorios()){
 					if (Comparator.notEquals(t.getLstSoldados().get(0).getExercito(), e)){
 						return false;

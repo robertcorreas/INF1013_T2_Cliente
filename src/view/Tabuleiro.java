@@ -107,7 +107,7 @@ public class Tabuleiro extends JFrame implements Observer {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// S� pode abrir o painel enquanto a jogada atual for de distribui��o
+				// SÃ³ pode abrir o painel enquanto a jogada atual for de distribuiÃ§Ã£o
 				if (controller.getJogadaAtual().getNome().equals("Distribuir")) {
 					if (pnlModalCartas.isVisible()) {
 						if (controller.getJogadorDaVez().getLstCartas().size() < 5)
@@ -256,7 +256,7 @@ public class Tabuleiro extends JFrame implements Observer {
 		// Posicionamento e tamanho do JFrame (janela)
 		setBounds(Config.x, Config.y, Config.LARG_DEFAULT, Config.ALT_DEFAULT);
 
-		// A��o padr�o ao fechar a janela
+		// AÃ§Ã£o padrÃ£o ao fechar a janela
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		repaint();
@@ -271,7 +271,7 @@ public class Tabuleiro extends JFrame implements Observer {
 
 		imgTabuleiro = new ImageIcon(imgTabuleiro.getImage().getScaledInstance(imgTabuleiro.getIconWidth(), imgTabuleiro.getIconHeight(), BufferedImage.SCALE_SMOOTH));
 		tabuleiro.setIcon(imgTabuleiro); // Imagem de fundo do tabuleiro
-		tabuleiro.setToolTipText("�gua");
+		tabuleiro.setToolTipText("Ãgua");
 
 		tabuleiro.setSize(imgTabuleiro.getIconWidth(),imgTabuleiro.getIconHeight());
 		add(tabuleiro).repaint();

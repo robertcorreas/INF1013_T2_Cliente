@@ -78,7 +78,7 @@ public class Territorio implements Serializable {
  	}
  	
 	/**
-	 * Monta o shape do territorio atrav�s do vetor de pontos passados
+	 * Monta o shape do territorio atravÃ©s do vetor de pontos passados
 	 * @param pontos
 	 */
 	private void montaShape(Ponto[] pontos) {

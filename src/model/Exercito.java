@@ -80,16 +80,16 @@ public class Exercito implements Serializable {
 	public void setJogadorFora(boolean b) {
 		foradojogo = b;
 		
-		// Se o jogador est� fora do jogo
+		// Se o jogador estÃ¡ fora do jogo
 		if (isJogadorFora()) {
 			
 			// Para cada jogador da lista de jogadores
 			for (Exercito j : ControllerTabuleiro.getInstance().getLstJogadores()) {
 				
-				// Se o jogador n�o � o jogador da vez
+				// Se o jogador nÃ£o Ã© o jogador da vez
 				if (Comparator.notEquals(j, ControllerTabuleiro.getInstance().getJogadorDaVez())) {
 					
-					// Se o objetivo do jogador � destruir este ex�rcito
+					// Se o objetivo do jogador Ã© destruir este exÃ©rcito
 					if (j.getObjetivo().getExercitoAlvo().equals(this)) {
 
 						// Seta o objetivo de 24 territorios para o jogador

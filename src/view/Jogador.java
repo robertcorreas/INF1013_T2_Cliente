@@ -32,8 +32,8 @@ public class Jogador extends PnlBoneco implements Observer {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-		// Define a cor do preenchimento do shape, de acordo com o n�mero de territorios possuidos.
-		// Se n�o possui nenhum, � cinza (est� fora do jogo), se possui, � a cor do exercito.
+		// Define a cor do preenchimento do shape, de acordo com o nÃºmero de territorios possuidos.
+		// Se nÃ£o possui nenhum, Ã© cinza (estÃ¡ fora do jogo), se possui, Ã© a cor do exercito.
 		if (! controller.possuiTerritorio(this.nome)) {
 			g2d.setPaint(Color.GRAY);
 		} else {
@@ -55,11 +55,11 @@ public class Jogador extends PnlBoneco implements Observer {
 		// Desenha o contorno do shape do territorio
 		g2d.draw(getExercitoShape());
 		
-		// Chama a fun��o para inserir o indicador caso seja o jogador ativo.
+		// Chama a funÃ§Ã£o para inserir o indicador caso seja o jogador ativo.
 		marcaPnljogadorAtivo();
 		
 		// Se houver soldados na reserva, exibe o label com a quantidade de soldados na reserva.
-		// Caso contr�rio, esconde o label
+		// Caso contrÃ¡rio, esconde o label
 		if (controller.getQtdSoldadosReserva(this.nome) > 0 && controller.possuiTerritorio(this.nome)) {
 			lblQtdSoldadosReserva.setVisible(true);
 		} else {
