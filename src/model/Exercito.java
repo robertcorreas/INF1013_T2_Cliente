@@ -87,7 +87,7 @@ public class Exercito implements Serializable {
 			for (Exercito j : ControllerTabuleiro.getInstance().getLstJogadores()) {
 				
 				// Se o jogador n�o � o jogador da vez
-				if (j != ControllerTabuleiro.getInstance().getJogadorDaVez()) {
+				if (Comparator.notEquals(j, ControllerTabuleiro.getInstance().getJogadorDaVez())) {
 					
 					// Se o objetivo do jogador � destruir este ex�rcito
 					if (j.getObjetivo().getExercitoAlvo().equals(this)) {

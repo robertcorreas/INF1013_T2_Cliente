@@ -33,11 +33,11 @@ public class TratadorProximaJogada extends Observable implements Runnable {
 			while (true) {
 				int b = in.read();
 				//if (b == -1) continue;
-				if((byte)b == Byte.MAX_VALUE) {
+				if ((byte)b == Byte.MAX_VALUE) {
 					count++;
 				} else count = 0;
 				
-				if(count > CODE_SIZE || b < 0) continue;
+				if (count > CODE_SIZE || b < 0) continue;
 				else bytes.add((byte) b);
 				
 				if (count==CODE_SIZE) {

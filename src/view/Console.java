@@ -65,7 +65,7 @@ public class Console extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		if(controller.getMensagem()!=null) {
+		if (controller.getMensagem()!=null) {
 			addLog(controller.getMensagem());
 		}
 		

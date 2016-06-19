@@ -49,10 +49,10 @@ public class Dado extends Observable implements Comparable<Dado>, Serializable {
 
 	@Override
 	public int compareTo(Dado o) {
-		if( o.getNumero() <  this.numero) {
+		if ( o.getNumero() <  this.numero) {
 			return -1;
 		}
-		if(o.getNumero() > this.numero ) {
+		if (o.getNumero() > this.numero ) {
 			return 1;
 		}
 		return 0;

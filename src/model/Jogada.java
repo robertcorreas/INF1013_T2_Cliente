@@ -17,7 +17,7 @@ public class Jogada implements Serializable {
 	}
 	
 	public void setAtivo() {
-		if(this.ativo) {
+		if (this.ativo) {
 			this.ativo = false;
 		} else { 
 			this.ativo = true;

@@ -67,7 +67,7 @@ public class Configuracao extends JFrame {
 		
 		// Lendro a lista de exercitos, adicionando � lista de jogadores se o ex�rcito est� selecionado
 		for(Exercito e: getLstexercitos()) {
-			if(e.isSelecionado()) {
+			if (e.isSelecionado()) {
 				lstJogadores.add(e);
 			}
 		}
@@ -76,7 +76,7 @@ public class Configuracao extends JFrame {
 		ControllerTabuleiro.embaralhaLista(lstJogadores);
 		
 		// Se existem mais de 2 jogadores, cria os jogadores no tabuleiro
-		if(lstJogadores.size() > 2 ) {			
+		if (lstJogadores.size() > 2 ) {			
 			for(Exercito e: lstJogadores) {
 				ControllerTabuleiro.setJogador(e.getNome(), e.getCor());
 			}
@@ -135,7 +135,7 @@ public class Configuracao extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				if(validaJogadores()){
+				if (validaJogadores()){
 					// Esconde a janela de configura��o do jogo.
 					setVisible(false);
 				};

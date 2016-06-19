@@ -45,7 +45,7 @@ public class PnlDados extends JPanel {
 		
 		public static PnlDados getInstance(){
 			
-			if(pnlDados == null) {
+			if (pnlDados == null) {
 				pnlDados = new PnlDados();
 			}
 			

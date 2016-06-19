@@ -35,7 +35,7 @@ public class PnlJogadores extends JPanel implements Observer {
 	}
 	
 	public static PnlJogadores getInstance(){
-		if(pnlJogadores == null) {
+		if (pnlJogadores == null) {
 			pnlJogadores = new PnlJogadores();
 		}
 		return pnlJogadores;

@@ -51,7 +51,7 @@ public class PnlTabelaTroca extends JPanel implements Observer{
 	}
 	
 	public static PnlTabelaTroca getInstance() {
-		if(lblTabelaTroca == null) {
+		if (lblTabelaTroca == null) {
 			lblTabelaTroca = new PnlTabelaTroca();
 		}
 		return lblTabelaTroca;

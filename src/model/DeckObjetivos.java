@@ -18,7 +18,7 @@ public class DeckObjetivos implements Serializable {
 	}
 
 	public static DeckObjetivos getInstance(){
-		if(deckObjetivos == null){
+		if (deckObjetivos == null){
 			deckObjetivos = new DeckObjetivos();
 		}
 		return deckObjetivos;
@@ -56,7 +56,7 @@ public class DeckObjetivos implements Serializable {
 	
 	public Objetivo getObjetivo(String s){
 		for(Objetivo o: getLstObjetivos()){
-			if(o.getNome().equals(s)){
+			if (o.getNome().equals(s)){
 				return o;
 			}
 		}

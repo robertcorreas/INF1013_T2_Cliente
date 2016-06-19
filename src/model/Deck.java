@@ -18,7 +18,7 @@ public class Deck implements Serializable {
 	}
 	
 	public static Deck getInstance(){
-		if(deck == null){
+		if (deck == null){
 			deck = new Deck();
 		}
 		return deck;

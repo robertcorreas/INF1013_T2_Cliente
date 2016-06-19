@@ -33,7 +33,7 @@ public class Jogador extends PnlBoneco implements Observer {
 
 		// Define a cor do preenchimento do shape, de acordo com o n�mero de territorios possuidos.
 		// Se n�o possui nenhum, � cinza (est� fora do jogo), se possui, � a cor do exercito.
-		if(! controller.possuiTerritorio(this.nome)) {
+		if (! controller.possuiTerritorio(this.nome)) {
 			g2d.setPaint(Color.GRAY);
 		} else {
 			g2d.setPaint(getCor());
@@ -43,7 +43,7 @@ public class Jogador extends PnlBoneco implements Observer {
 		g2d.fill(getExercitoShape());		
 		
 		
-		if(controller.possuiTerritorio(this.nome)){
+		if (controller.possuiTerritorio(this.nome)){
 			// Seta a cor comop preto
 			g2d.setPaint(Color.lightGray);
 		} else {
@@ -59,7 +59,7 @@ public class Jogador extends PnlBoneco implements Observer {
 		
 		// Se houver soldados na reserva, exibe o label com a quantidade de soldados na reserva.
 		// Caso contr�rio, esconde o label
-		if(controller.getQtdSoldadosReserva(this.nome) > 0 && controller.possuiTerritorio(this.nome)) {
+		if (controller.getQtdSoldadosReserva(this.nome) > 0 && controller.possuiTerritorio(this.nome)) {
 			lblQtdSoldadosReserva.setVisible(true);
 		} else {
 			lblQtdSoldadosReserva.setVisible(false);
@@ -79,7 +79,7 @@ public class Jogador extends PnlBoneco implements Observer {
 	}
 	
 	private void marcaPnljogadorAtivo() {
-		if(controller.getJogadorDaVez().getNome().equals(this.nome)) {
+		if (controller.getJogadorDaVez().getNome().equals(this.nome)) {
 			add(indicador);
 		}		
 	}

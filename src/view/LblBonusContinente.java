@@ -20,7 +20,7 @@ public class LblBonusContinente extends JLabel {
 	}
 	
 	public static LblBonusContinente getInstance() {
-		if(lblBonusContinente == null) {
+		if (lblBonusContinente == null) {
 			lblBonusContinente = new LblBonusContinente();
 		}
 		return lblBonusContinente;

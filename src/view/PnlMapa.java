@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import controller.ControllerTabuleiro;
+import model.Comparator;
 import model.Continente;
 import model.Territorio;
 
@@ -80,7 +81,7 @@ public class PnlMapa extends JPanel implements Observer {
 	}
 	
 	public static PnlMapa getInstance() {
-		if(mapa == null) {
+		if (mapa == null) {
 			mapa = new PnlMapa();
 		}
 		return mapa;
@@ -118,20 +119,20 @@ public class PnlMapa extends JPanel implements Observer {
 				}
 				
 				// Pintando os territorios marcados como fronteira, se jogada for de ataque
-				if(controller.getJogadaAtual().getNome().equals("Atacar")) {
-					if(
+				if (controller.getJogadaAtual().getNome().equals("Atacar")) {
+					if (
 							controller.getTerritorioOrigem()!=null // Se houver territorio de origem
 							&& controller.getTerritorioOrigem().getLstFronteiras().contains(t) // & o territorio clicado estiver na lista de territorios de fronteiras do territorio de origem
-							&& controller.getTerritorioDestino() != t // & o territorio clicado n�o for o territorio de destino 
-							&& controller.getTerritorioOrigem().getLstSoldados().get(0).getExercito() != t.getLstSoldados().get(0).getExercito() // & O territorio clicado nao pertencer ao jogador atual
+							&& (Comparator.notEquals(controller.getTerritorioDestino(), t)) // & o territorio clicado n�o for o territorio de destino 
+							&& (Comparator.notEquals(controller.getTerritorioOrigem().getLstSoldados().get(0).getExercito(), t.getLstSoldados().get(0).getExercito())) // & O territorio clicado nao pertencer ao jogador atual
 					) {
 						corBg = c.getCor().brighter();	
 					}
-				} else if(controller.getJogadaAtual().getNome().equals("Remanejar")) {
-					if(
+				} else if (controller.getJogadaAtual().getNome().equals("Remanejar")) {
+					if (
 							controller.getTerritorioOrigem()!=null // Se houver territorio de origem
 							&& controller.getTerritorioOrigem().getLstFronteiras().contains(t) // & o territorio clicado estiver na lista de territorios de fronteiras do territorio de origem
-							&& controller.getTerritorioDestino() != t // & o territorio clicado n�o for o territorio de destino 
+							&& ((Comparator.notEquals(controller.getTerritorioDestino(), t))) // & o territorio clicado n�o for o territorio de destino 
 							&& controller.getTerritorioOrigem().getLstSoldados().get(0).getExercito().equals(t.getLstSoldados().get(0).getExercito()) // & O territorio clicado nao pertencer ao jogador atual
 					) {
 						corBg = c.getCor().brighter();	

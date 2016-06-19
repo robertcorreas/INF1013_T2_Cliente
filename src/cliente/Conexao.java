@@ -14,7 +14,7 @@ public class Conexao implements Observer {
 	private TratadorProximaJogada tratador;
 	
 	public static Conexao getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new Conexao(getSocket());
 		}
 		return instance;

@@ -8,6 +8,8 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import model.Comparator;
+
 @SuppressWarnings("serial")
 public class LblCarta extends JLabel {
 	
@@ -31,8 +33,8 @@ public class LblCarta extends JLabel {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if(imagemCarta.toString() != imgPlaceholder.toString() ) {
-					if(isTrocar()) {
+				if (Comparator.notEquals(imagemCarta.toString(), imgPlaceholder.toString()) ) {
+					if (isTrocar()) {
 						setTroca(false);
 					} else {
 						setTroca(true);
@@ -95,7 +97,7 @@ public class LblCarta extends JLabel {
 		
 		setBorder(null);
 	
-		if(isTrocar()) {
+		if (isTrocar()) {
 			setBorder(BorderFactory.createLoweredBevelBorder());
 		}
 	}

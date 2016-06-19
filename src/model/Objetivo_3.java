@@ -17,14 +17,14 @@ public class Objetivo_3 extends Objetivo {
 		for (Continente c : lstContinentes) {
 			if (c.getNome() == "Ásia") {
 				for (Territorio t : c.getLstTerritorios()) {
-					if (t.getLstSoldados().get(0).getExercito() != e) {
+					if (Comparator.notEquals(t.getLstSoldados().get(0).getExercito(), e)) {
 						return false;
 					}
 				}
 			}
 			if (c.getNome() == "América do sul"){
 				for(Territorio t: c.getLstTerritorios()){
-					if(t.getLstSoldados().get(0).getExercito() != e){
+					if (Comparator.notEquals(t.getLstSoldados().get(0).getExercito(), e)){
 						return false;
 					}
 				}

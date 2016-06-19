@@ -52,7 +52,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(controller.getJogadorDaVez().getLstCartas().size() < 5) {
+				if (controller.getJogadorDaVez().getLstCartas().size() < 5) {
 					setVisible(false);
 				}
 			}
@@ -68,13 +68,13 @@ public class PnlModalCartas extends JPanel implements Observer {
 				
 				// Construindo a lista de troca para
 				for(LblCarta c: lstLblCartas ){
-					if(c.isTrocar()) {
+					if (c.isTrocar()) {
 						lstTroca.add(c);
 					}
 				}
 				
 				// Se a lista de troca contiver 03 e somente 03 cartas
-				if(lstTroca.size()==3) {
+				if (lstTroca.size()==3) {
 					
 					int s1 = lstTroca.get(0).getSimbolo();
 					int s2 = lstTroca.get(1).getSimbolo();
@@ -82,7 +82,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 					
 					if (isSimboloIgual(s1, s2, s3)) {
 						preparaTroca();
-					} else if(isSimboloDiferente(s1, s2, s3)) {
+					} else if (isSimboloDiferente(s1, s2, s3)) {
 						preparaTroca();
 					} else {
 						controller.setMensagem("Os simbolos das cartas precisam ser todos iguais ou diferentes.");
@@ -110,32 +110,32 @@ public class PnlModalCartas extends JPanel implements Observer {
 	
 	private boolean isSimboloIgual(int s1, int s2, int s3) {
 		
-		if(s1==4) {
-			if(s2 != 4) {
+		if (s1==4) {
+			if (s2!=4) {
 				s1 = s2;
-			} else if(s3 != 4) {
+			} else if (s3!=4) {
 				s1 = s3;
 			}
 		}
 		
-		if(s2==4) {
-			if(s1 != 4) {
+		if (s2==4) {
+			if (s1!=4) {
 				s2 = s1;
-			} else if(s3 != 4) {
+			} else if (s3!=4) {
 				s2= s3;
 			}
 		}
 		
-		if(s3==4) {
-			if(s1 != 4) {
+		if (s3==4) {
+			if (s1!=4) {
 				s3 = s1;
-			} else if(s2 != 4) {
+			} else if (s2!=4) {
 				s3 = s2;
 			}
 		}
 		
 		
-		if(s1 == s2 && s2 == s3) {
+		if (s1 == s2 && s2 == s3) {
 			return true;
 		}
 		
@@ -144,7 +144,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 	
 	private boolean isSimboloDiferente(int s1, int s2, int s3) {
 		
-		if(s1 != s2 && s1 != s3 && s2 != s3) {
+		if (s1!=s2 && s1!=s3 && s2!=s3) {
 			return true;
 		}		
 		
@@ -219,7 +219,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 	}
 	
 	private void atualizaCartaObjetivo() {
-		if(controller.getJogadorDaVez().getObjetivo()!=null) {
+		if (controller.getJogadorDaVez().getObjetivo()!=null) {
 			lblCartaObjetivo.setToolTipText(controller.getJogadorDaVez().getObjetivo().getDescricao());
 		}
 	}
@@ -228,12 +228,12 @@ public class PnlModalCartas extends JPanel implements Observer {
 		
 		for(LblCarta c: lstLblCartas) {
 			c.setBorder(null);
-			if(c.isTrocar()) {
+			if (c.isTrocar()) {
 				c.setTroca(false);
 			}
 		}
 		
-		if(controller.getCartaJogador(0)!=null) {
+		if (controller.getCartaJogador(0)!=null) {
 			ImageIcon imgcarta = new ImageIcon("src/resources/images/" + controller.getCartaJogador(0)[0] + ".png");
 			lblCarta1.setIcon(imgcarta);
 			lblCarta1.setImagem(imgcarta);
@@ -246,7 +246,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 			lblCarta1.setImagem(imgcarta);
 		}
 		
-		if(controller.getCartaJogador(1)!=null) {
+		if (controller.getCartaJogador(1)!=null) {
 			ImageIcon imgcarta = new ImageIcon("src/resources/images/" + controller.getCartaJogador(1)[0] + ".png");
 			lblCarta2.setIcon(imgcarta);
 			lblCarta2.setImagem(imgcarta);
@@ -259,7 +259,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 			lblCarta2.setImagem(imgcarta);
 		}
 		
-		if(controller.getCartaJogador(2)!=null) {
+		if (controller.getCartaJogador(2)!=null) {
 			ImageIcon imgcarta = new ImageIcon("src/resources/images/" + controller.getCartaJogador(2)[0] + ".png");
 			lblCarta3.setIcon(imgcarta);
 			lblCarta3.setImagem(imgcarta);
@@ -272,7 +272,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 			lblCarta3.setImagem(imgcarta);
 		}
 		
-		if(controller.getCartaJogador(3)!=null) {
+		if (controller.getCartaJogador(3)!=null) {
 			ImageIcon imgcarta = new ImageIcon("src/resources/images/" + controller.getCartaJogador(3)[0] + ".png");
 			lblCarta4.setIcon(imgcarta);
 			lblCarta4.setImagem(imgcarta);
@@ -285,7 +285,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 			lblCarta4.setImagem(imgcarta);
 		}
 		
-		if(controller.getCartaJogador(4)!=null) {
+		if (controller.getCartaJogador(4)!=null) {
 			ImageIcon imgcarta = new ImageIcon("src/resources/images/" + controller.getCartaJogador(4)[0] + ".png");
 			lblCarta5.setIcon(imgcarta);
 			lblCarta5.setImagem(imgcarta);
@@ -300,7 +300,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 	}
 	
 	public static PnlModalCartas getInstance() {
-		if(pnlModalCartas == null) {
+		if (pnlModalCartas == null) {
 			pnlModalCartas = new PnlModalCartas();
 		}
 		return pnlModalCartas;

@@ -21,7 +21,7 @@ public class Objetivo_6 extends Objetivo {
 		for (Continente c : lstContinentes) {
 			if (c.getNome().equals("Oceania")) {
 				for (Territorio t : c.getLstTerritorios()) {
-					if (t.getLstSoldados().get(0).getExercito() != e) {
+					if (Comparator.notEquals(t.getLstSoldados().get(0).getExercito(), e)) {
 						return false;
 					}
 				}
@@ -29,7 +29,7 @@ public class Objetivo_6 extends Objetivo {
 			
 			if (c.getNome().equals("Europa")){
 				for(Territorio t: c.getLstTerritorios()){
-					if(t.getLstSoldados().get(0).getExercito() != e){
+					if (Comparator.notEquals(t.getLstSoldados().get(0).getExercito(), e)){
 						return false;
 					}
 				}
@@ -69,7 +69,7 @@ public class Objetivo_6 extends Objetivo {
 
 		}
 		
-		if(af==6 || as==20 || asul==4|| an==9 ){
+		if (af==6 || as==20 || asul==4|| an==9 ){
 			return true;
 		}
 

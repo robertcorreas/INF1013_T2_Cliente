@@ -106,7 +106,7 @@ public class Territorio implements Serializable {
 	}
 
 	public void setAtivo() {
-		if(ativo) {
+		if (ativo) {
 			ativo = false;
 			//console.addLog(this.nome + " desativado.\n" + "Contem " + this.getLstSoldados().size() + " soldado(s) do exercito " + this.getLstSoldados().get(0).getExercito().getNome());
 			marcaFronteiras();			
@@ -138,7 +138,7 @@ public class Territorio implements Serializable {
 	}
 
 	public void setFronteira() {
-		if(fronteira) {
+		if (fronteira) {
 			fronteira = false;
 		} else {
 			fronteira = true;
@@ -147,7 +147,7 @@ public class Territorio implements Serializable {
 	
 	public void setFronteira(Territorio t) {
 		lstFronteiras.add(t);
-		if(!t.lstFronteiras.contains(this)) {
+		if (!t.lstFronteiras.contains(this)) {
 			t.setFronteira(this);	
 		}
 	}

@@ -20,7 +20,7 @@ public class Soldado implements Serializable {
 	}
 	
 	public void setImigrante() {
-		if(imigrante==false) {
+		if (imigrante==false) {
 			imigrante = true;
 		} else {
 			imigrante = false;

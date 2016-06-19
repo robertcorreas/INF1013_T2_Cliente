@@ -53,7 +53,7 @@ public class PnlIndicadorJogador extends JPanel implements Observer{
 	}
 	
 	public static PnlIndicadorJogador getInstance() {
-		if(indicador == null) {
+		if (indicador == null) {
 			indicador = new PnlIndicadorJogador();
 		}
 		return indicador;

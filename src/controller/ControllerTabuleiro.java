@@ -20,6 +20,7 @@ import java.util.Random;
 
 import cliente.TabuleiroSerializable;
 import model.Carta;
+import model.Comparator;
 import model.Continente;
 import model.Dado;
 import model.Deck;
@@ -699,7 +700,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 
 	private boolean calculaBonusContinente(Continente c) {
 		for (Territorio t : c.getLstTerritorios()) {
-			if (t.getLstSoldados().get(0).getExercito() != jogadorDaVez) {
+			if (Comparator.notEquals(t.getLstSoldados().get(0).getExercito(), jogadorDaVez)) {
 				return false;
 			}
 		}
@@ -1189,9 +1190,9 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 				controller.JogaDados('d', qtdDadosDefesa);
 
 				for (Dado da : lstDadosAtaque) {
-					if (da.getNumero() != 0) {
+					if (da.getNumero()!=0) {
 						Dado df = lstDadosDefesa.get(lstDadosAtaque.indexOf(da));
-						if (df.getNumero() != 0) {
+						if (df.getNumero()!=0) {
 							int comparaResultado = df.compareTo(da);
 							if (comparaResultado <= 0) {
 								territorioOrigem.getLstSoldados().remove(0);
@@ -1325,7 +1326,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 					if (botaoMouse == MouseEvent.BUTTON1) {
 
 						if (e.equals(jogadorDaVez)) {
-							if (getTerritorioOrigem() != t) {
+							if (Comparator.notEquals(getTerritorioOrigem(), t)) {
 								setTerritorioOrigem(t);
 							} else {
 								setTerritorioOrigem(null);
