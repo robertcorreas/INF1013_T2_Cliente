@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class TratadorProximaJogada extends Observable implements Runnable {
 
+	private static final int CODE_SIZE = 20;
 	private Socket socket;
 
 	public TratadorProximaJogada(Socket socket) {
@@ -32,14 +33,17 @@ public class TratadorProximaJogada extends Observable implements Runnable {
 			while (true) {
 				int b = in.read();
 				//if (b == -1) continue;
-				bytes.add((byte) b);
 				if((byte)b == Byte.MAX_VALUE) {
 					count++;
 				} else count = 0;
-				if (count==5) {
-					Byte[] bytesarr = new Byte[bytes.size()-5];
-					byte[] bytesarr2 = new byte[bytes.size()-5];
-					bytes.subList(0, bytes.size()-5).toArray(bytesarr);
+				
+				if(count > CODE_SIZE || b < 0) continue;
+				else bytes.add((byte) b);
+				
+				if (count==CODE_SIZE) {
+					Byte[] bytesarr = new Byte[bytes.size()-CODE_SIZE];
+					byte[] bytesarr2 = new byte[bytes.size()-CODE_SIZE];
+					bytes.subList(0, bytes.size()-CODE_SIZE).toArray(bytesarr);
 					bytes.clear();
 					for(int i = 0; i < bytesarr.length; i++) {
 						bytesarr2[i] = bytesarr[i];

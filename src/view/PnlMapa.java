@@ -1,16 +1,22 @@
 package view;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
+import controller.ControllerTabuleiro;
 import model.Continente;
 import model.Territorio;
-import controller.ControllerTabuleiro;
 
 
 @SuppressWarnings("serial")
@@ -18,6 +24,7 @@ public class PnlMapa extends JPanel implements Observer {
 
 	private static PnlMapa mapa;
 	ControllerTabuleiro controller = ControllerTabuleiro.getInstance();
+	private HashMap<String, JLabel> soldadosLabels = new HashMap<>();
 
 	private PnlMapa() {
 		controller.addObserver(this);
@@ -26,7 +33,15 @@ public class PnlMapa extends JPanel implements Observer {
 		
 		for(Continente c: controller.getLstContinentes()) {
 			for(Territorio t: c.getLstTerritorios()) {
-				add(t.getLblNumSoldados());
+				JLabel lblNumSoldados = new JLabel();
+				lblNumSoldados.setLocation((int)t.getSoldadoPos().getX(), (int)t.getSoldadoPos().getY());
+				lblNumSoldados.setSize(23, 23);
+				lblNumSoldados.setOpaque(false);
+				lblNumSoldados.setForeground(Color.WHITE);
+				lblNumSoldados.setText(t.getLstSoldados().size()+"");
+				lblNumSoldados.setHorizontalAlignment(SwingConstants.CENTER);
+				soldadosLabels.put(t.getNome(), lblNumSoldados);
+				add(lblNumSoldados);
 			}
 		}
 		
@@ -75,7 +90,7 @@ public class PnlMapa extends JPanel implements Observer {
 		
 		for(Continente c: controller.getLstContinentes()) {
 			for(Territorio t: c.getLstTerritorios()){
-				t.atualizaLblnumsoldados();
+				soldadosLabels.get(t.getNome()).setText(t.getLstSoldados().size()+"");
 			}
 		}
 		
@@ -95,8 +110,8 @@ public class PnlMapa extends JPanel implements Observer {
 			for(Territorio t : lstTerritorios) {
 				
 				// Pintando os territorios marcados como ativo
-				if ((controller.getTerritorioOrigem() != null && controller.getTerritorioOrigem().equals(t)) ||
-						(controller.getTerritorioDestino() != null && controller.getTerritorioDestino().equals(t))) {
+				if ((controller.getTerritorioOrigem()!=null && controller.getTerritorioOrigem().equals(t)) ||
+						(controller.getTerritorioDestino()!=null && controller.getTerritorioDestino().equals(t))) {
 					 corBg = c.getCor().brighter().brighter();
 				} else {
 					corBg = c.getCor();
@@ -105,7 +120,7 @@ public class PnlMapa extends JPanel implements Observer {
 				// Pintando os territorios marcados como fronteira, se jogada for de ataque
 				if(controller.getJogadaAtual().getNome().equals("Atacar")) {
 					if(
-							controller.getTerritorioOrigem() != null // Se houver territorio de origem
+							controller.getTerritorioOrigem()!=null // Se houver territorio de origem
 							&& controller.getTerritorioOrigem().getLstFronteiras().contains(t) // & o territorio clicado estiver na lista de territorios de fronteiras do territorio de origem
 							&& controller.getTerritorioDestino() != t // & o territorio clicado n�o for o territorio de destino 
 							&& controller.getTerritorioOrigem().getLstSoldados().get(0).getExercito() != t.getLstSoldados().get(0).getExercito() // & O territorio clicado nao pertencer ao jogador atual
@@ -114,7 +129,7 @@ public class PnlMapa extends JPanel implements Observer {
 					}
 				} else if(controller.getJogadaAtual().getNome().equals("Remanejar")) {
 					if(
-							controller.getTerritorioOrigem() != null // Se houver territorio de origem
+							controller.getTerritorioOrigem()!=null // Se houver territorio de origem
 							&& controller.getTerritorioOrigem().getLstFronteiras().contains(t) // & o territorio clicado estiver na lista de territorios de fronteiras do territorio de origem
 							&& controller.getTerritorioDestino() != t // & o territorio clicado n�o for o territorio de destino 
 							&& controller.getTerritorioOrigem().getLstSoldados().get(0).getExercito().equals(t.getLstSoldados().get(0).getExercito()) // & O territorio clicado nao pertencer ao jogador atual

@@ -354,7 +354,7 @@ public class Tabuleiro extends JFrame implements Observer {
 		this.controller = (ControllerTabuleiro)o;
 		
 		repaint();
-		if(controller.getJogadaAtual() != null && controller.getJogadorDaVez() != null && controller.getJogadorDaVez().getLstCartas().size() > 4 && controller.getJogadaAtual().getNome()=="Distribuir") {
+		if(controller.getJogadaAtual()!=null && controller.getJogadorDaVez()!=null && controller.getJogadorDaVez().getLstCartas().size() > 4 && controller.getJogadaAtual().getNome()=="Distribuir") {
 			pnlModalCartas.setVisible(true);
 		}
 		

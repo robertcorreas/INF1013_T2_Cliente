@@ -219,7 +219,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 	}
 	
 	private void atualizaCartaObjetivo() {
-		if(controller.getJogadorDaVez().getObjetivo() != null) {
+		if(controller.getJogadorDaVez().getObjetivo()!=null) {
 			lblCartaObjetivo.setToolTipText(controller.getJogadorDaVez().getObjetivo().getDescricao());
 		}
 	}
@@ -233,11 +233,11 @@ public class PnlModalCartas extends JPanel implements Observer {
 			}
 		}
 		
-		if(controller.getCartaJogador(0) != null) {
+		if(controller.getCartaJogador(0)!=null) {
 			ImageIcon imgcarta = new ImageIcon("src/resources/images/" + controller.getCartaJogador(0)[0] + ".png");
 			lblCarta1.setIcon(imgcarta);
 			lblCarta1.setImagem(imgcarta);
-			lblCarta1.setNomeTerritorio((String) controller.getCartaJogador(0)[1] != null? (String) controller.getCartaJogador(0)[1]: "Coringa");
+			lblCarta1.setNomeTerritorio((String) controller.getCartaJogador(0)[1]!=null? (String) controller.getCartaJogador(0)[1]: "Coringa");
 			lblCarta1.setToolTipText(lblCarta1.getNomeTerritorio());
 			lblCarta1.setSimbolo((int) controller.getCartaJogador(0)[2]);
 		} else {
@@ -246,11 +246,11 @@ public class PnlModalCartas extends JPanel implements Observer {
 			lblCarta1.setImagem(imgcarta);
 		}
 		
-		if(controller.getCartaJogador(1) != null) {
+		if(controller.getCartaJogador(1)!=null) {
 			ImageIcon imgcarta = new ImageIcon("src/resources/images/" + controller.getCartaJogador(1)[0] + ".png");
 			lblCarta2.setIcon(imgcarta);
 			lblCarta2.setImagem(imgcarta);
-			lblCarta2.setNomeTerritorio((String) controller.getCartaJogador(1)[1] != null? (String) controller.getCartaJogador(1)[1]: "Coringa");
+			lblCarta2.setNomeTerritorio((String) controller.getCartaJogador(1)[1]!=null? (String) controller.getCartaJogador(1)[1]: "Coringa");
 			lblCarta2.setToolTipText(lblCarta2.getNomeTerritorio());
 			lblCarta2.setSimbolo((int) controller.getCartaJogador(1)[2]);
 		} else {
@@ -259,11 +259,11 @@ public class PnlModalCartas extends JPanel implements Observer {
 			lblCarta2.setImagem(imgcarta);
 		}
 		
-		if(controller.getCartaJogador(2) != null) {
+		if(controller.getCartaJogador(2)!=null) {
 			ImageIcon imgcarta = new ImageIcon("src/resources/images/" + controller.getCartaJogador(2)[0] + ".png");
 			lblCarta3.setIcon(imgcarta);
 			lblCarta3.setImagem(imgcarta);
-			lblCarta3.setNomeTerritorio((String) controller.getCartaJogador(2)[1] != null? (String) controller.getCartaJogador(2)[1]: "Coringa");
+			lblCarta3.setNomeTerritorio((String) controller.getCartaJogador(2)[1]!=null? (String) controller.getCartaJogador(2)[1]: "Coringa");
 			lblCarta3.setToolTipText(lblCarta3.getNomeTerritorio());
 			lblCarta3.setSimbolo((int) controller.getCartaJogador(2)[2]);
 		} else {
@@ -272,11 +272,11 @@ public class PnlModalCartas extends JPanel implements Observer {
 			lblCarta3.setImagem(imgcarta);
 		}
 		
-		if(controller.getCartaJogador(3) != null) {
+		if(controller.getCartaJogador(3)!=null) {
 			ImageIcon imgcarta = new ImageIcon("src/resources/images/" + controller.getCartaJogador(3)[0] + ".png");
 			lblCarta4.setIcon(imgcarta);
 			lblCarta4.setImagem(imgcarta);
-			lblCarta4.setNomeTerritorio((String) controller.getCartaJogador(3)[1] != null? (String) controller.getCartaJogador(3)[1]: "Coringa");
+			lblCarta4.setNomeTerritorio((String) controller.getCartaJogador(3)[1]!=null? (String) controller.getCartaJogador(3)[1]: "Coringa");
 			lblCarta4.setToolTipText(lblCarta4.getNomeTerritorio());
 			lblCarta4.setSimbolo((int) controller.getCartaJogador(3)[2]);
 		} else {
@@ -285,11 +285,11 @@ public class PnlModalCartas extends JPanel implements Observer {
 			lblCarta4.setImagem(imgcarta);
 		}
 		
-		if(controller.getCartaJogador(4) != null) {
+		if(controller.getCartaJogador(4)!=null) {
 			ImageIcon imgcarta = new ImageIcon("src/resources/images/" + controller.getCartaJogador(4)[0] + ".png");
 			lblCarta5.setIcon(imgcarta);
 			lblCarta5.setImagem(imgcarta);
-			lblCarta5.setNomeTerritorio((String) controller.getCartaJogador(4)[1] != null? (String) controller.getCartaJogador(4)[1]: "Coringa" );
+			lblCarta5.setNomeTerritorio((String) controller.getCartaJogador(4)[1]!=null? (String) controller.getCartaJogador(4)[1]: "Coringa" );
 			lblCarta5.setToolTipText(lblCarta5.getNomeTerritorio());
 			lblCarta5.setSimbolo((int) controller.getCartaJogador(4)[2]);
 		} else {

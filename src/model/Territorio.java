@@ -34,8 +34,6 @@ public class Territorio implements Serializable {
 	private ArrayList<Territorio> lstFronteiras = new ArrayList<Territorio>();
 	private ArrayList<Soldado> lstSoldados = new ArrayList<Soldado>();
 	
-	JLabel lblNumExercitos = new JLabel();
-	
 	public void addSoldado(Soldado s){
 		lstSoldados.add(s);
 	}
@@ -61,23 +59,6 @@ public class Territorio implements Serializable {
 		g2d.fill(circulo);
 		g2d.setColor(Color.black);
 		g2d.draw(circulo);
-	}
-	
-	public JLabel getLblNumSoldados() {		
-
-		lblNumExercitos.setLocation((int)soldadoPos.getX(), (int)soldadoPos.getY());
-		lblNumExercitos.setSize(23, 23);
-		lblNumExercitos.setOpaque(false);
-		lblNumExercitos.setForeground(Color.WHITE);
-		lblNumExercitos.setText(lstSoldados.size()+"");
-		lblNumExercitos.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		return lblNumExercitos;
-	}
-	
-	public void atualizaLblnumsoldados() {
-		System.out.println("ATUALIZANDO LISTA SOLDADOS");
-		lblNumExercitos.setText(lstSoldados.size()+"");
 	}
 	
  	public Territorio(String nome, Ponto[] pontos, String nomeCarta, Ponto soldadoPos, int simbolo) {
