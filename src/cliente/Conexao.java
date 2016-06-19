@@ -7,8 +7,11 @@ import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Observer;
 
+import controller.ControllerTabuleiro;
+
 public class Conexao implements Observer {
 
+	public final static int CODE_SIZE = 20;
 	private Socket socket;
 	private static Conexao instance;
 	private TratadorProximaJogada tratador;
@@ -40,7 +43,33 @@ public class Conexao implements Observer {
 		tratador.addObserver(o);
 	}
 	
-	public void EnviarTabuleiro(byte[] tabuleiro){
+	@Override
+	public void update(Observable o, Object tabuleiro) {
+		if (tabuleiro!=null) {
+			System.out.println("tabuleiro não é nulo!");
+			ControllerTabuleiro controller = (ControllerTabuleiro) tabuleiro;
+			if (!controller.serializerIgnore) {
+				this.enviarTabuleiro(tabuleiroAsMessage(controller));
+			}
+			controller.serializerIgnore = false;
+		} else {
+			System.out.println("Tabuleiro é nulo!");
+		}
+	}
+	
+	private byte[] tabuleiroAsMessage(ControllerTabuleiro controller) {
+		byte[] boarr = controller.serialize();
+		byte[] serialized = new byte[boarr.length + CODE_SIZE];
+		for (int i = 0; i < boarr.length; i++) {
+			serialized[i] = boarr[i];
+		}
+		for (int i = 0; i < CODE_SIZE; i++) {
+			serialized[boarr.length + i] = Byte.MAX_VALUE;
+		}
+		return serialized;
+	}
+
+	private void enviarTabuleiro(byte[] tabuleiro){
 		PrintStream saida;
 		try {
 			System.out.println("Enviei tabuleiro!");
@@ -52,16 +81,4 @@ public class Conexao implements Observer {
 		}
 	}
 
-	@Override
-	public void update(Observable o, Object msg) { // envia o tabuleiro para o servidor
-		PrintStream saida;
-		try {
-			System.out.println("Enviei tabuleiro!");
-			saida = new PrintStream(this.socket.getOutputStream());
-			saida.println((String)msg);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Could not send information through connection with server.");
-		}
-	}
 }

@@ -38,8 +38,6 @@ import model.Territorio;
  *
  */
 public class ControllerTabuleiro extends Observable implements Observer, Serializable {
-
-	private static final int CODE_SIZE = 20;
 	private static ControllerTabuleiro controller;
 	private static List<model.Exercito> lstJogadores = new ArrayList<model.Exercito>();
 
@@ -1456,16 +1454,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 			throw new RuntimeException("Could not serialize ControllerTabuleiro");
 		}
 
-		byte[] boarr = stream.toByteArray();
-		byte[] serialized = new byte[boarr.length + CODE_SIZE];
-		for (int i = 0; i < boarr.length; i++) {
-			serialized[i] = boarr[i];
-		}
-		for (int i = 0; i < CODE_SIZE; i++) {
-			serialized[boarr.length + i] = Byte.MAX_VALUE;
-		}
-
-		return serialized;
+		return stream.toByteArray();
 	}
 
 	@Override

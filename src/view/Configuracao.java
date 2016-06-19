@@ -18,7 +18,6 @@ import javax.swing.JTextArea;
 
 import cliente.Conexao;
 import controller.ControllerTabuleiro;
-import model.TabuleiroSerializadoObservable;
 
 @SuppressWarnings("serial")
 public class Configuracao extends JFrame {
@@ -88,8 +87,7 @@ public class Configuracao extends JFrame {
 			Tabuleiro.getInstance();
 			ControllerTabuleiro controller = ControllerTabuleiro.getInstance();
 			controller.preparaTabuleiro();
-			TabuleiroSerializadoObservable tabuleiroSerObserver = new TabuleiroSerializadoObservable();
-			controller.addObserver(tabuleiroSerObserver);
+			controller.addObserver(Conexao.getInstance());
 			Conexao.getInstance().addParaSincronizar(controller);
 			return true;
 		}
