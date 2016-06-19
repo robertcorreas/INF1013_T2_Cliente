@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import controller.ControllerTabuleiro;
 import model.Comparator;
 import model.Continente;
+import model.Jogada;
 import model.Territorio;
 
 
@@ -119,7 +120,8 @@ public class PnlMapa extends JPanel implements Observer {
 				}
 				
 				// Pintando os territorios marcados como fronteira, se jogada for de ataque
-				if (controller.getJogadaAtual().getNome().equals("Atacar")) {
+				Jogada jogadaAtual = controller.getJogadaAtual();
+				if (jogadaAtual != null && jogadaAtual.getNome().equals("Atacar")) {
 					if (
 							controller.getTerritorioOrigem()!=null // Se houver territorio de origem
 							&& controller.getTerritorioOrigem().getLstFronteiras().contains(t) // & o territorio clicado estiver na lista de territorios de fronteiras do territorio de origem
@@ -128,7 +130,7 @@ public class PnlMapa extends JPanel implements Observer {
 					) {
 						corBg = c.getCor().brighter();	
 					}
-				} else if (controller.getJogadaAtual().getNome().equals("Remanejar")) {
+				} else if (jogadaAtual != null && jogadaAtual.getNome().equals("Remanejar")) {
 					if (
 							controller.getTerritorioOrigem()!=null // Se houver territorio de origem
 							&& controller.getTerritorioOrigem().getLstFronteiras().contains(t) // & o territorio clicado estiver na lista de territorios de fronteiras do territorio de origem

@@ -17,9 +17,10 @@ public class Jogador extends PnlBoneco implements Observer {
 	private ControllerTabuleiro controller = ControllerTabuleiro.getInstance();
 	private PnlIndicadorJogador indicador = PnlIndicadorJogador.getInstance();
 	private JLabel lblQtdSoldadosReserva = new JLabel();
-	
-	public Jogador(String nome, Color cor) {
+	{
 		controller.addObserver(this);
+	}
+	public Jogador(String nome, Color cor) {
 		this.nome = nome;
 		this.cor = cor;
 		setToolTipText("Jogador " + getNome());
