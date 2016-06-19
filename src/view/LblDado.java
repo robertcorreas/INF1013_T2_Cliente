@@ -41,7 +41,7 @@ public class LblDado extends JLabel implements Observer {
 		getNumero();
 		
 		// Se for do tipo ataque, seta as imagens dos dados de ataque.
-		if (tipo == 'a') {
+		if (tipo =='a') {
 			
 			if (numero==1) {
 				imagem = new ImageIcon("src/resources/images/dado_ataque_1.png");
@@ -113,7 +113,7 @@ public class LblDado extends JLabel implements Observer {
 		}
 		
 		if (numero==0) {
-			tipoString += "n�o utilizado";
+			tipoString += "não utilizado";
 		}
 		
 		setToolTipText("Dado " + tipoString);

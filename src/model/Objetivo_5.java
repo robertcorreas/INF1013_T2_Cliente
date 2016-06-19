@@ -22,7 +22,7 @@ public class Objetivo_5 extends Objetivo {
 					}
 				}
 			}
-			if (c.getNome() == "América do norte"){
+			if (c.getNome().equals("América do norte")){
 				for(Territorio t: c.getLstTerritorios()){
 					if (Comparator.notEquals(t.getLstSoldados().get(0).getExercito(), e)){
 						return false;
