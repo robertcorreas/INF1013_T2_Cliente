@@ -90,7 +90,7 @@ public class Exercito implements Serializable {
 				if (j != ControllerTabuleiro.getInstance().getJogadorDaVez()) {
 					
 					// Se o objetivo do jogador � destruir este ex�rcito
-					if (j.getObjetivo().getExercitoAlvo() == this) {
+					if (j.getObjetivo().getExercitoAlvo().equals(this)) {
 
 						// Seta o objetivo de 24 territorios para o jogador
 						j.setObjetivo(new Objetivo_1());

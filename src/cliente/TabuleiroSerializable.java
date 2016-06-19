@@ -17,8 +17,8 @@ public class TabuleiroSerializable implements Serializable {
 	public List<model.Exercito> lstJogadores;
 	public List<Jogada> lstJogadas;
 	public ArrayList<Continente> lstContinentes;
-	public model.Exercito iteradorAtualDoJogador;
-	public Jogada iteradorAtualJogada;
+	public int iteradorAtualDoJogador;
+	public int iteradorAtualJogada;
 	public ArrayList<Dado> lstDadosAtaque;
 	public ArrayList<Dado> lstDadosDefesa;
 	public Exercito jogadorDaVez;

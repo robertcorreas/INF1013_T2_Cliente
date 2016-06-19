@@ -88,12 +88,9 @@ public class Configuracao extends JFrame {
 			Tabuleiro.getInstance();
 			ControllerTabuleiro controller = ControllerTabuleiro.getInstance();
 			controller.preparaTabuleiro();
-//			Conexao conexao = Conexao.getInstance();
-//			conexao.addParaSincronizar(controller);
 			TabuleiroSerializadoObservable tabuleiroSerObserver = new TabuleiroSerializadoObservable();
 			controller.addObserver(tabuleiroSerObserver);
 			Conexao.getInstance().addParaSincronizar(controller);
-//			tabuleiroSerObserver.addObserver(conexao);
 			return true;
 		}
 		return false;

@@ -74,7 +74,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 				}
 				
 				// Se a lista de troca contiver 03 e somente 03 cartas
-				if(lstTroca.size() == 3) {
+				if(lstTroca.size()==3) {
 					
 					int s1 = lstTroca.get(0).getSimbolo();
 					int s2 = lstTroca.get(1).getSimbolo();
@@ -110,7 +110,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 	
 	private boolean isSimboloIgual(int s1, int s2, int s3) {
 		
-		if(s1 == 4) {
+		if(s1==4) {
 			if(s2 != 4) {
 				s1 = s2;
 			} else if(s3 != 4) {
@@ -118,7 +118,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 			}
 		}
 		
-		if(s2 == 4) {
+		if(s2==4) {
 			if(s1 != 4) {
 				s2 = s1;
 			} else if(s3 != 4) {
@@ -126,7 +126,7 @@ public class PnlModalCartas extends JPanel implements Observer {
 			}
 		}
 		
-		if(s3 == 4) {
+		if(s3==4) {
 			if(s1 != 4) {
 				s3 = s1;
 			} else if(s2 != 4) {

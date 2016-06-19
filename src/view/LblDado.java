@@ -43,59 +43,59 @@ public class LblDado extends JLabel implements Observer {
 		// Se for do tipo ataque, seta as imagens dos dados de ataque.
 		if(tipo == 'a') {
 			
-			if(numero == 1) {
+			if(numero==1) {
 				imagem = new ImageIcon("src/resources/images/dado_ataque_1.png");
 			}
 			
-			if(numero == 2) {
+			if(numero==2) {
 				imagem = new ImageIcon("src/resources/images/dado_ataque_2.png");
 			}
 
-			if(numero == 3) {
+			if(numero==3) {
 				imagem = new ImageIcon("src/resources/images/dado_ataque_3.png");
 			}
 
-			if(numero == 4) {
+			if(numero==4) {
 				imagem = new ImageIcon("src/resources/images/dado_ataque_4.png");
 			}
 
-			if(numero == 5) {
+			if(numero==5) {
 				imagem = new ImageIcon("src/resources/images/dado_ataque_5.png");
 			}
 
-			if(numero == 6) {
+			if(numero==6) {
 				imagem = new ImageIcon("src/resources/images/dado_ataque_6.png");
 			}
 		}
 		
 		// Se for do tipo defesa, seta as imagens dos dados de defesa.
 		else if(tipo == 'd') {
-			if(numero == 1) {
+			if(numero==1) {
 				imagem = new ImageIcon("src/resources/images/dado_defesa_1.png");
 			}
 			
-			if(numero == 2) {
+			if(numero==2) {
 				imagem = new ImageIcon("src/resources/images/dado_defesa_2.png");
 			}
 
-			if(numero == 3) {
+			if(numero==3) {
 				imagem = new ImageIcon("src/resources/images/dado_defesa_3.png");
 			}
 
-			if(numero == 4) {
+			if(numero==4) {
 				imagem = new ImageIcon("src/resources/images/dado_defesa_4.png");
 			}
 
-			if(numero == 5) {
+			if(numero==5) {
 				imagem = new ImageIcon("src/resources/images/dado_defesa_5.png");
 			}
 
-			if(numero == 6) {
+			if(numero==6) {
 				imagem = new ImageIcon("src/resources/images/dado_defesa_6.png");
 			}
 		} 
 		
-		if(numero == 0) {
+		if(numero==0) {
 			imagem = new ImageIcon("src/resources/images/dado_desativado.png");
 		}
 		
@@ -112,7 +112,7 @@ public class LblDado extends JLabel implements Observer {
 			tipoString = "de defesa ";
 		}
 		
-		if(numero == 0) {
+		if(numero==0) {
 			tipoString += "n�o utilizado";
 		}
 		

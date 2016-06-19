@@ -56,7 +56,7 @@ public class DeckObjetivos implements Serializable {
 	
 	public Objetivo getObjetivo(String s){
 		for(Objetivo o: getLstObjetivos()){
-			if(o.getNome() == s){
+			if(o.getNome().equals(s)){
 				return o;
 			}
 		}

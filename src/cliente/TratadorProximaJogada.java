@@ -36,7 +36,7 @@ public class TratadorProximaJogada extends Observable implements Runnable {
 				if((byte)b == Byte.MAX_VALUE) {
 					count++;
 				} else count = 0;
-				if (count == 5) {
+				if (count==5) {
 					Byte[] bytesarr = new Byte[bytes.size()-5];
 					byte[] bytesarr2 = new byte[bytes.size()-5];
 					bytes.subList(0, bytes.size()-5).toArray(bytesarr);
@@ -44,6 +44,7 @@ public class TratadorProximaJogada extends Observable implements Runnable {
 					for(int i = 0; i < bytesarr.length; i++) {
 						bytesarr2[i] = bytesarr[i];
 					}
+					System.out.println("Recebi tabuleiro!");
 					setChanged();
 					notifyObservers(bytesarr2);
 				}

@@ -108,7 +108,7 @@ public class Tabuleiro extends JFrame implements Observer {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// S� pode abrir o painel enquanto a jogada atual for de distribui��o
-				if(controller.getJogadaAtual().getNome() == "Distribuir") {
+				if(controller.getJogadaAtual().getNome().equals("Distribuir")) {
 					if(pnlModalCartas.isVisible()) {
 						if(controller.getJogadorDaVez().getLstCartas().size() < 5)
 							pnlModalCartas.setVisible(false);
@@ -325,7 +325,7 @@ public class Tabuleiro extends JFrame implements Observer {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				if(controller.getJogadaAtual().getNome() == "Distribuir" && controller.getJogadorDaVez().getLstCartas().size() > 4 ) {
+				if(controller.getJogadaAtual().getNome().equals("Distribuir") && controller.getJogadorDaVez().getLstCartas().size() > 4 ) {
 					
 				} else {
 					pnlModalCartas.setVisible(false);

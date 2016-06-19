@@ -76,6 +76,7 @@ public class Territorio implements Serializable {
 	}
 	
 	public void atualizaLblnumsoldados() {
+		System.out.println("ATUALIZANDO LISTA SOLDADOS");
 		lblNumExercitos.setText(lstSoldados.size()+"");
 	}
 	

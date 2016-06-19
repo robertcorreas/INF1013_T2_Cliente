@@ -17,7 +17,7 @@ public class Objetivo_1 extends Objetivo {
 		int i = 0;
 		for (Continente c : lstContinentes) {
 			for (Territorio t : c.getLstTerritorios()) {
-				if (t.getLstSoldados().get(0).getExercito() == e) {
+				if (t.getLstSoldados().get(0).getExercito().equals(e)) {
 					i++;
 				}
 			}

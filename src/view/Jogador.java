@@ -79,7 +79,7 @@ public class Jogador extends PnlBoneco implements Observer {
 	}
 	
 	private void marcaPnljogadorAtivo() {
-		if(controller.getJogadorDaVez().getNome() == this.nome) {
+		if(controller.getJogadorDaVez().getNome().equals(this.nome)) {
 			add(indicador);
 		}		
 	}

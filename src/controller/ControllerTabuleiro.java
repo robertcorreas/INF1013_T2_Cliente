@@ -581,7 +581,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 
 		// Adiciona os territorios aos continentes
 		for (Continente c : lstContinentes) {
-			if (c.getNome() == "Am�rica do norte") {
+			if (c.getNome().equals("Am�rica do norte")) {
 				c.getLstTerritorios().add(Alasca);
 				c.getLstTerritorios().add(Calgary);
 				c.getLstTerritorios().add(Groelandia);
@@ -591,19 +591,19 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 				c.getLstTerritorios().add(Texas);
 				c.getLstTerritorios().add(Nova_York);
 				c.getLstTerritorios().add(Mexico);
-			} else if (c.getNome() == "Am�rica do sul") {
+			} else if (c.getNome().equals("Am�rica do sul")) {
 				c.getLstTerritorios().add(Venezuela);
 				c.getLstTerritorios().add(Peru);
 				c.getLstTerritorios().add(Brasil);
 				c.getLstTerritorios().add(Argentina);
-			} else if (c.getNome() == "�frica") {
+			} else if (c.getNome().equals("�frica")) {
 				c.getLstTerritorios().add(Africa_do_Sul);
 				c.getLstTerritorios().add(Somalia);
 				c.getLstTerritorios().add(Angola);
 				c.getLstTerritorios().add(Egito);
 				c.getLstTerritorios().add(Nigeria);
 				c.getLstTerritorios().add(Argelia);
-			} else if (c.getNome() == "�sia") {
+			} else if (c.getNome().equals("�sia")) {
 				c.getLstTerritorios().add(Tailandia);
 				c.getLstTerritorios().add(Bangladesh);
 				c.getLstTerritorios().add(India);
@@ -624,7 +624,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 				c.getLstTerritorios().add(Russia);
 				c.getLstTerritorios().add(Siberia);
 				c.getLstTerritorios().add(Japao);
-			} else if (c.getNome() == "Europa") {
+			} else if (c.getNome().equals("Europa")) {
 				c.getLstTerritorios().add(Reino_Unido);
 				c.getLstTerritorios().add(Franca);
 				c.getLstTerritorios().add(Espanha);
@@ -633,7 +633,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 				c.getLstTerritorios().add(Romenia);
 				c.getLstTerritorios().add(Ucrania);
 				c.getLstTerritorios().add(Polonia);
-			} else if (c.getNome() == "Oceania") {
+			} else if (c.getNome().equals("Oceania")) {
 				c.getLstTerritorios().add(Australia);
 				c.getLstTerritorios().add(Perth);
 				c.getLstTerritorios().add(Indonesia);
@@ -666,7 +666,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		// Calcula quanto territorios o exercito tem
 		for (Continente c : getLstContinentes()) {
 			for (Territorio t : c.getLstTerritorios()) {
-				if (t.getLstSoldados().get(0).getExercito() == exAtivo) {
+				if (t.getLstSoldados().get(0).getExercito().equals(exAtivo)) {
 					i++;
 				}
 			}
@@ -754,7 +754,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 
 		for (Continente c : lstContinentes) {
 			for (Territorio t : c.getLstTerritorios()) {
-				if (t.getLstSoldados().get(0).getExercito() == e) {
+				if (t.getLstSoldados().get(0).getExercito().equals(e)) {
 					return true;
 				}
 			}
@@ -819,7 +819,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 
 				// Se o ex�rcito alvo � o exercito da vez da distribui��o dos
 				// objetivos
-				if (o.getExercitoAlvo() == e) {
+				if (o.getExercitoAlvo().equals(e)) {
 
 					// Seta o objetivo de 24 territ�rios
 					e.setObjetivo(new Objetivo_1());
@@ -907,7 +907,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 			conquistouTerritorio = false;
 			proxJogador();
 
-			while (possuiTerritorio(jogadorDaVez.getNome()) == false) {
+			while (possuiTerritorio(jogadorDaVez.getNome())==false) {
 				proxJogador();
 			}
 
@@ -917,7 +917,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		itJogada.next().setAtivo();
 		zeraSoldadosImigrantes();
 		String mensagem = "Vez do Jogador " + jogadorDaVez.getNome() + " " + descobreJogadas().getNome();
-		if (descobreJogadas().getNome() == "Remanejar") {
+		if (descobreJogadas().getNome().equals("Remanejar")) {
 			mensagem += " (bot�o esquerdo seleciona origem, bot�o direito move soldados)";
 		}
 		setMensagem(mensagem);
@@ -994,7 +994,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 	private Carta descobreCarta(String nomeTerritorio) {
 		for (Carta c : jogadorDaVez.getLstCartas()) {
 			if (c.getTerritorio() != null) {
-				if (c.getTerritorio().getNome() == nomeTerritorio) {
+				if (c.getTerritorio().getNome().equals(nomeTerritorio)) {
 					return c;
 				}
 			} else {
@@ -1027,7 +1027,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 			for (int i = 0; i < TerritorioCartas.length; i++) {
 				Carta carta = descobreCarta(TerritorioCartas[i]);
 				if (carta.getTerritorio() != null
-						&& carta.getTerritorio().getLstSoldados().get(0).getExercito() == jogadorDaVez) {
+						&& carta.getTerritorio().getLstSoldados().get(0).getExercito().equals(jogadorDaVez)) {
 					carta.getTerritorio().addSoldado(new Soldado(jogadorDaVez));
 					mensagem += " + 1 (" + carta.getTerritorio().getNome() + ")";
 				}
@@ -1067,9 +1067,9 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		this.territorioOrigem = territorioOrigem;
 		this.territorioDestino = null;
 		String string1 = null;
-		if (descobreJogadas().getNome() == "Atacar") {
+		if (descobreJogadas().getNome().equals("Atacar")) {
 			string1 = "Origem: ";
-		} else if (descobreJogadas().getNome() == "Remanejar") {
+		} else if (descobreJogadas().getNome().equals("Remanejar")) {
 			string1 = "Remanejando soldados a partir de: ";
 		}
 		if (getTerritorioOrigem() != null) {
@@ -1100,7 +1100,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 
 	public void JogaDados(char tipo, int numDados) {
 
-		if (descobreJogadas().getNome() == "Atacar") {
+		if (descobreJogadas().getNome().equals("Atacar")) {
 
 			if (getTerritorioOrigem() != null && getTerritorioDestino() != null) {
 
@@ -1156,10 +1156,12 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 			// Se o check do objetivo do jogador for igual a true
 			if (jogadorDaVez.getObjetivo().getExercitoAlvo() == null
 					&& jogadorDaVez.getObjetivo().Check(lstContinentes, jogadorDaVez)) {
+				System.out.println("COND 1 VENCEDOR!!!");
 				setVencedor();
 				telaVencedor();
 			} else if (jogadorDaVez.getObjetivo().getExercitoAlvo() != null
 					&& jogadorDaVez.getObjetivo().Check(lstContinentes, jogadorDaVez.getObjetivo().getExercitoAlvo())) {
+				System.out.println("COND 2 VENCEDOR!!!");
 				setVencedor();
 				telaVencedor();
 			}
@@ -1178,7 +1180,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 
 		if (vencedor == null) {
 
-			if (getJogadaAtual().getNome() == "Atacar" && territorioOrigem.getLstSoldados().size() > 1
+			if (getJogadaAtual().getNome().equals("Atacar") && territorioOrigem.getLstSoldados().size() > 1
 					&& getTerritorioOrigem() != null && getTerritorioDestino() != null) {
 				int qtdDadosAtaque = getTerritorioOrigem().getLstSoldados().size() > 3 ? 3
 						: getTerritorioOrigem().getLstSoldados().size() - 1;
@@ -1233,7 +1235,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 
 		while (itSoldado.hasNext()) {
 			Soldado s = itSoldado.next();
-			if (s.getContinente() == c) {
+			if (s.getContinente() == c || (s.getContinente() != null && s.getContinente().equals(c))) {
 				moveEntreListas(jogadorDaVez.getLstSoldados(), t.getLstSoldados(), s);
 				setMensagem("Soldado bunus do continente " + s.getContinente().getNome() + " alocado no territorio "
 						+ t.getNome());
@@ -1280,9 +1282,9 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 			if (t != null) {
 				Exercito e = t.getLstSoldados().get(0).getExercito();
 				// Jogada de distribui��o
-				if (descobreJogadas().getNome() == "Distribuir" && jogadorDaVez.getLstCartas().size() < 5) {
+				if (descobreJogadas().getNome().equals("Distribuir") && jogadorDaVez.getLstCartas().size() < 5) {
 
-					if (e == jogadorDaVez) { // Se o territorio clicado for do
+					if (e.equals(jogadorDaVez)) { // Se o territorio clicado for do
 												// jogador da vez
 
 						if (moveSoldadoContinente(c, t)) {
@@ -1301,8 +1303,8 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 				}
 
 				// Jogada de Ataque
-				if (descobreJogadas().getNome() == "Atacar") {
-					if (e == jogadorDaVez) { // Se o territorio for do jogador
+				if (descobreJogadas().getNome().equals("Atacar")) {
+					if (e.equals(jogadorDaVez)) { // Se o territorio for do jogador
 												// da vez
 						if (t.getLstSoldados().size() > 1) {
 							setTerritorioOrigem(t); // Seta o territorio clicado
@@ -1320,11 +1322,11 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 				}
 
 				// Jogada de remanejamento
-				if (descobreJogadas().getNome() == "Remanejar") {
+				if (descobreJogadas().getNome().equals("Remanejar")) {
 
 					if (botaoMouse == MouseEvent.BUTTON1) {
 
-						if (e == jogadorDaVez) {
+						if (e.equals(jogadorDaVez)) {
 							if (getTerritorioOrigem() != t) {
 								setTerritorioOrigem(t);
 							} else {
@@ -1333,7 +1335,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 						}
 
 					} else if (botaoMouse == MouseEvent.BUTTON3) {
-						if (e == jogadorDaVez) {
+						if (e.equals(jogadorDaVez)) {
 							if (getTerritorioOrigem() != null && getTerritorioOrigem().getLstSoldados().size() > 1
 									&& getTerritorioOrigem().getLstFronteiras().contains(t)) {
 								Soldado soldado = getTerritorioOrigem().getLstSoldados().get(0);
@@ -1388,57 +1390,36 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		return descobreExercito(nome).isAtivo();
 	}
 
-	public boolean validaTroca(HashSet<String> lstTroca) {
-		return false;
+	private int getIndexOfJogadoresIterator() {
+		int index = getIteratorIndex(this.itJogador, getLstJogadores());
+		this.itJogador = restoreIterator(getLstJogadores(), index);
+		return index;
 	}
 
-	private model.Exercito getCurrentValueOfJogadoresIterator() {
+	private int getIndexOfJogadasIterator() {
+		int index = getIteratorIndex(this.itJogada, getLstJogadas());
+		this.itJogada = restoreIterator(getLstJogadas(), index);
+		return index;
+	}
 
-		Iterator<model.Exercito> it = getLstJogadores().iterator();
-		
-		if (this.itJogador.hasNext() == false) {
-			return getLstJogadores().get(getLstJogadores().size() - 1);
-
-		}
-		
-		model.Exercito current = this.itJogador.next();
-		int index = getLstJogadores().indexOf(current);
-
-		if (index == 0) {
-			return null;
+	private <T> int getIteratorIndex(Iterator<T> it, List<T> lst) {
+		if (it.hasNext()) {
+			T current = it.next();
+			return lst.indexOf(current);
+		} else {
+			return lst.size();
 		}
 
+	}
+
+	private <T> Iterator<T> restoreIterator(List<T> lst, int index) {
+		Iterator<T> it = lst.iterator();
 		for (int i = 0; i < index; i++) {
 			it.next();
 		}
-
-		this.itJogador = it;
-
-		return getLstJogadores().get(index - 1);
+		return it;
 	}
 
-	private model.Jogada getCurrentValueOfJogadasIterator() {
-
-		Iterator<model.Jogada> it = getLstJogadas().iterator();
-		if (this.itJogada.hasNext() == false) {
-			return getLstJogadas().get(getLstJogadas().size() - 1);
-
-		}
-		model.Jogada current = this.itJogada.next();
-		int index = getLstJogadas().indexOf(current);
-
-		if (index == 0) {
-			return null;
-		}
-
-		for (int i = 0; i < index; i++) {
-			it.next();
-		}
-
-		this.itJogada = it;
-
-		return getLstJogadas().get(index - 1);
-	}
 
 	public byte[] serialize() {
 		TabuleiroSerializable tabuleiroSerializable = new TabuleiroSerializable();
@@ -1457,15 +1438,10 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		tabuleiroSerializable.territorioDestino = this.territorioDestino;
 		tabuleiroSerializable.territorioOrigem = this.territorioOrigem;
 		tabuleiroSerializable.vencedor = this.vencedor;
+		System.out.println("Vencedor deserializado: " + String.valueOf(this.vencedor) + " / " + String.valueOf(tabuleiroSerializable.vencedor));
 
-		tabuleiroSerializable.iteradorAtualDoJogador = getCurrentValueOfJogadoresIterator();
-		tabuleiroSerializable.iteradorAtualJogada = getCurrentValueOfJogadasIterator();
-
-		// Gson gson = new Gson();
-		//
-		// String json = gson.toJson(tabuleiroSerializable);
-		//
-		// return json;
+		tabuleiroSerializable.iteradorAtualDoJogador = getIndexOfJogadoresIterator();
+		tabuleiroSerializable.iteradorAtualJogada = getIndexOfJogadasIterator();
 
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		ObjectOutputStream out;
@@ -1495,7 +1471,6 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 
 	@Override
 	public void update(Observable o, Object serializedObj) {
-
 		ByteArrayInputStream stream = new ByteArrayInputStream((byte[]) serializedObj);
 		ObjectInputStream input;
 		TabuleiroSerializable tabuleiroSerializable;
@@ -1507,12 +1482,7 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Could not deserialize ControllerTabuleiro");
-
 		}
-		
-		// Gson gson = new Gson();
-		// TabuleiroSerializable tabuleiroSerializable =
-		// gson.fromJson((String)json, TabuleiroSerializable.class);
 		
 		this.conquistouTerritorio = tabuleiroSerializable.conquistouTerritorio;
 		this.deck = tabuleiroSerializable.deck;
@@ -1528,42 +1498,10 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		this.territorioDestino = tabuleiroSerializable.territorioDestino;
 		this.territorioOrigem = tabuleiroSerializable.territorioOrigem;
 		this.vencedor = tabuleiroSerializable.vencedor;
+		System.out.println("Vencedor deserializado: " + String.valueOf(this.vencedor) + " / " + String.valueOf(tabuleiroSerializable.vencedor));
 
-		if (tabuleiroSerializable.iteradorAtualDoJogador == null) {
-			this.itJogador = getLstJogadores().iterator();
-		} else {
-
-			Iterator<model.Exercito> it = getLstJogadores().iterator();
-
-			while (it.hasNext()) {
-				model.Exercito current = it.next();
-				if (current.getNome() == tabuleiroSerializable.iteradorAtualDoJogador.getNome()
-						&& current.getObjetivo() == tabuleiroSerializable.iteradorAtualDoJogador.getObjetivo())
-					break;
-			}
-
-			this.itJogador = it;
-
-		}
-
-		if (tabuleiroSerializable.iteradorAtualJogada == null) {
-			this.itJogada = getLstJogadas().iterator();
-		} else {
-
-			Iterator<model.Jogada> it = getLstJogadas().iterator();
-
-			while (it.hasNext()) {
-				model.Jogada current = it.next();
-				if (current.getNome() == tabuleiroSerializable.iteradorAtualJogada.getNome()
-						&& current.isAtivo() == tabuleiroSerializable.iteradorAtualJogada.isAtivo())
-					break;
-				if (it.next() == tabuleiroSerializable.iteradorAtualJogada)
-					break;
-			}
-
-			this.itJogada = it;
-
-		}
+		this.itJogador = restoreIterator(getLstJogadores(), tabuleiroSerializable.iteradorAtualDoJogador);
+		this.itJogada = restoreIterator(getLstJogadas(), tabuleiroSerializable.iteradorAtualJogada);
 
 		ControllerTabuleiro.controller = this;
 
