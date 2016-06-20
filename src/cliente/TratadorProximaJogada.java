@@ -6,7 +6,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
-import java.util.Scanner;
 
 public class TratadorProximaJogada extends Observable implements Runnable {
 
@@ -31,7 +30,7 @@ public class TratadorProximaJogada extends Observable implements Runnable {
 			int count = 0;
 			while (true) {
 				int b = in.read();
-				//if (b == -1) continue;
+
 				if ((byte)b == Byte.MAX_VALUE) {
 					count++;
 				} else count = 0;
@@ -40,35 +39,21 @@ public class TratadorProximaJogada extends Observable implements Runnable {
 				else bytes.add((byte) b);
 				
 				if (count==Conexao.CODE_SIZE) {
-					Byte[] bytesarr = new Byte[bytes.size()-Conexao.CODE_SIZE];
-					byte[] bytesarr2 = new byte[bytes.size()-Conexao.CODE_SIZE];
-					bytes.subList(0, bytes.size()-Conexao.CODE_SIZE).toArray(bytesarr);
+					Byte[] messageBytes = new Byte[bytes.size()-Conexao.CODE_SIZE];
+					byte[] fullmessageBytes = new byte[bytes.size()-Conexao.CODE_SIZE];
+					bytes.subList(0, bytes.size()-Conexao.CODE_SIZE).toArray(messageBytes);
 					bytes.clear();
-					for(int i = 0; i < bytesarr.length; i++) {
-						bytesarr2[i] = bytesarr[i];
+					for(int i = 0; i < messageBytes.length; i++) {
+						fullmessageBytes[i] = messageBytes[i];
 					}
-					System.out.println("Recebi tabuleiro!");
 					setChanged();
-					notifyObservers(bytesarr2);
+					notifyObservers(fullmessageBytes);
 				}
 			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-//		
-// 		Scanner in_serv;
-// 		try {
-// 			in_serv = new Scanner(socket.getInputStream());
-// 			while (in_serv.hasNextLine()) {
-// 				System.out.println("Recebi tabuleiro!");
-//				setChanged();
-// 				notifyObservers(in_serv.nextLine());
-// 			}
-// 		} catch (IOException e) {
-// 			
-// 		}
  	}
 
 }

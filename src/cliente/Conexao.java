@@ -10,7 +10,7 @@ import java.util.Observer;
 import controller.ControllerTabuleiro;
 
 public class Conexao implements Observer {
-
+	private final static String SERVER_HOST = "127.0.0.1";
 	public final static int CODE_SIZE = 20;
 	private Socket socket;
 	private static Conexao instance;
@@ -25,7 +25,7 @@ public class Conexao implements Observer {
 
 	private static Socket getSocket() {
 		try {
-			return new Socket("127.0.0.1", 5500);
+			return new Socket(SERVER_HOST, 5500);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -46,33 +46,29 @@ public class Conexao implements Observer {
 	@Override
 	public void update(Observable o, Object tabuleiro) {
 		if (tabuleiro!=null) {
-			System.out.println("tabuleiro não é nulo!");
 			ControllerTabuleiro controller = (ControllerTabuleiro) tabuleiro;
 			if (!controller.serializerIgnore) {
-				this.enviarTabuleiro(tabuleiroAsMessage(controller));
+				this.sendTabuleiro(tabuleiroAsMessage(controller));
 			}
 			controller.serializerIgnore = false;
-		} else {
-			System.out.println("Tabuleiro é nulo!");
 		}
 	}
 	
 	private byte[] tabuleiroAsMessage(ControllerTabuleiro controller) {
-		byte[] boarr = controller.serialize();
-		byte[] serialized = new byte[boarr.length + CODE_SIZE];
-		for (int i = 0; i < boarr.length; i++) {
-			serialized[i] = boarr[i];
+		byte[] tabuleiroBytes = controller.serialize();
+		byte[] messageBytes = new byte[tabuleiroBytes.length + CODE_SIZE];
+		for (int i = 0; i < tabuleiroBytes.length; i++) {
+			messageBytes[i] = tabuleiroBytes[i];
 		}
 		for (int i = 0; i < CODE_SIZE; i++) {
-			serialized[boarr.length + i] = Byte.MAX_VALUE;
+			messageBytes[tabuleiroBytes.length + i] = Byte.MAX_VALUE;
 		}
-		return serialized;
+		return messageBytes;
 	}
 
-	private void enviarTabuleiro(byte[] tabuleiro){
+	private void sendTabuleiro(byte[] tabuleiro){
 		PrintStream saida;
 		try {
-			System.out.println("Enviei tabuleiro!");
 			saida = new PrintStream(this.socket.getOutputStream());
 			saida.write(tabuleiro);
 		} catch (IOException e) {

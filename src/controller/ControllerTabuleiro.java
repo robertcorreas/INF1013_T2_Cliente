@@ -1153,12 +1153,10 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 			// Se o check do objetivo do jogador for igual a true
 			if (jogadorDaVez.getObjetivo().getExercitoAlvo() == null
 					&& jogadorDaVez.getObjetivo().Check(lstContinentes, jogadorDaVez)) {
-				System.out.println("COND 1 VENCEDOR!!!");
 				setVencedor();
 				telaVencedor();
 			} else if (jogadorDaVez.getObjetivo().getExercitoAlvo() != null
 					&& jogadorDaVez.getObjetivo().Check(lstContinentes, jogadorDaVez.getObjetivo().getExercitoAlvo())) {
-				System.out.println("COND 2 VENCEDOR!!!");
 				setVencedor();
 				telaVencedor();
 			}
@@ -1389,36 +1387,6 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		return descobreExercito(nome).isAtivo();
 	}
 
-	private int getIndexOfJogadoresIterator() {
-		int index = getIteratorIndex(this.itJogador, getLstJogadores());
-		this.itJogador = restoreIterator(getLstJogadores(), index);
-		return index;
-	}
-
-	private int getIndexOfJogadasIterator() {
-		int index = getIteratorIndex(this.itJogada, getLstJogadas());
-		this.itJogada = restoreIterator(getLstJogadas(), index);
-		return index;
-	}
-
-	private <T> int getIteratorIndex(Iterator<T> it, List<T> lst) {
-		if (it.hasNext()) {
-			T current = it.next();
-			return lst.indexOf(current);
-		} else {
-			return lst.size();
-		}
-
-	}
-
-	private <T> Iterator<T> restoreIterator(List<T> lst, int index) {
-		Iterator<T> it = lst.iterator();
-		for (int i = 0; i < index; i++) {
-			it.next();
-		}
-		return it;
-	}
-
 	public byte[] serialize() {
 		TabuleiroSerializable tabuleiroSerializable = new TabuleiroSerializable();
 
@@ -1436,8 +1404,6 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		tabuleiroSerializable.territorioDestino = this.territorioDestino;
 		tabuleiroSerializable.territorioOrigem = this.territorioOrigem;
 		tabuleiroSerializable.vencedor = this.vencedor;
-		System.out.println("Vencedor deserializado: " + String.valueOf(this.vencedor) + " / "
-				+ String.valueOf(tabuleiroSerializable.vencedor));
 
 		tabuleiroSerializable.iteradorAtualDoJogador = getIndexOfJogadoresIterator();
 		tabuleiroSerializable.iteradorAtualJogada = getIndexOfJogadasIterator();
@@ -1486,17 +1452,42 @@ public class ControllerTabuleiro extends Observable implements Observer, Seriali
 		this.territorioDestino = tabuleiroSerializable.territorioDestino;
 		this.territorioOrigem = tabuleiroSerializable.territorioOrigem;
 		this.vencedor = tabuleiroSerializable.vencedor;
-		System.out.println("Vencedor deserializado: " + String.valueOf(this.vencedor) + " / "
-				+ String.valueOf(tabuleiroSerializable.vencedor));
 
 		this.itJogador = restoreIterator(getLstJogadores(), tabuleiroSerializable.iteradorAtualDoJogador);
 		this.itJogada = restoreIterator(getLstJogadas(), tabuleiroSerializable.iteradorAtualJogada);
 
 		ControllerTabuleiro.controller = this;
 
-		System.out.println("Controller deserializado!!");
 		serializerIgnore = true;
 		notificaMudancas();
 	}
+	
+	private int getIndexOfJogadoresIterator() {
+		int index = getIteratorIndex(this.itJogador, getLstJogadores());
+		this.itJogador = restoreIterator(getLstJogadores(), index);
+		return index;
+	}
 
+	private int getIndexOfJogadasIterator() {
+		int index = getIteratorIndex(this.itJogada, getLstJogadas());
+		this.itJogada = restoreIterator(getLstJogadas(), index);
+		return index;
+	}
+
+	private <T> int getIteratorIndex(Iterator<T> it, List<T> lst) {
+		if (it.hasNext()) {
+			T current = it.next();
+			return lst.indexOf(current);
+		} else {
+			return lst.size();
+		}
+	}
+
+	private <T> Iterator<T> restoreIterator(List<T> lst, int index) {
+		Iterator<T> it = lst.iterator();
+		for (int i = 0; i < index; i++) {
+			it.next();
+		}
+		return it;
+	}
 }
